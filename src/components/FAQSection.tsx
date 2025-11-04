@@ -122,7 +122,7 @@ export default function FAQSection() {
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
               Nu ați găsit răspunsul la întrebarea dumneavoastră?
             </p>
-            <button className="bg-[#ffe502] hover:bg-[#ffed33] text-black font-semibold px-8 py-4 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl">
+            <button className="bg-[#ffe502] hover:bg-[#ffed33] text-black font-semibold px-8 py-4 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl cursor-pointer">
               Obțineți consultație gratuită
             </button>
           </motion.div>

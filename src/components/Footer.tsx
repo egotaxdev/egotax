@@ -24,11 +24,11 @@ const Footer = () => {
     {
       title: 'Servicii',
       links: [
-        { name: 'Contabilitate', href: '#servicii' },
+        { name: 'Evidență contabilă', href: '#servicii' },
         { name: 'Consultanță fiscală', href: '#servicii' },
-        { name: 'Înregistrare SRL', href: '#servicii' },
-        { name: 'Raportare TVA', href: '#servicii' },
-        { name: 'Audit financiar', href: '#servicii' },
+        { name: 'Restabilirea evidenței contabile', href: '#servicii' },
+        { name: 'Analiză și diagnostic financiar', href: '#servicii' },
+        { name: 'Suport în inițierea afacerii', href: '#servicii' },
       ]
     },
     {
@@ -37,8 +37,6 @@ const Footer = () => {
         { name: 'Despre noi', href: '#despre' },
         { name: 'Echipa', href: '#echipa' },
         { name: 'Cariere', href: '#cariere' },
-        { name: 'Blog', href: '#blog' },
-        { name: 'Noutăți', href: '#noutati' },
       ]
     },
     {
@@ -46,9 +44,7 @@ const Footer = () => {
       links: [
         { name: 'Întrebări frecvente', href: '#faq' },
         { name: 'Calculator costuri', href: '#calculator' },
-        { name: 'Documentație', href: '#docs' },
         { name: 'Contact', href: '#contact' },
-        { name: 'Programare consultație', href: '#programare' },
       ]
     }
   ];

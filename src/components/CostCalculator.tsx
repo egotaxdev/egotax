@@ -273,7 +273,7 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
                                   {activity.label}
                                   <button
                                     onClick={() => removeActivityType(activityValue)}
-                                    className="ml-2 hover:bg-gray-200 rounded-full p-1"
+                                    className="ml-2 hover:bg-gray-200 rounded-full p-1 cursor-pointer"
                                   >
                                     <X className="h-4 w-4" />
                                   </button>
