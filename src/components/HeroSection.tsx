@@ -6,8 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import BackgroundChart from "./BackgroundChart";
 import { SplittingText } from "@/components/ui/shadcn-io/splitting-text";
+import React, { useState } from "react";
+import CostCalculatorDrawer from "@/components/CostCalculatorDrawer";
+import { Calculator } from "lucide-react";
 
 export default function HeroSection() {
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   return (
     <section className="relative min-h-[600px] h-[100vh] max-h-[900px] bg-white dark:bg-black flex items-center justify-center pt-24">
       {/* Background Chart */}
@@ -126,16 +130,14 @@ export default function HeroSection() {
           </div>
 
           {/* Calculator Card */}
-          <Card className="col-start-9 col-span-4 row-start-6 group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer border-gray-200 hover:border-gray-300">
+          <Card
+            className="col-start-9 col-span-4 row-start-6 group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer border-gray-200 hover:border-gray-300"
+            onClick={() => setIsCalculatorOpen(true)}
+          >
             <CardContent className="p-4 h-full flex items-center justify-center">
               <div className="flex items-center gap-3 w-full">
                 <div className="flex-shrink-0 w-10 h-10 bg-[#FFE500] hover:bg-[#FFED33] dark:bg-[#FFE500] rounded-lg flex items-center justify-center group-hover:bg-[#FFED33] dark:group-hover:bg-[#FFED33] transition-colors">
-                  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                    <rect x="4" y="3" width="16" height="18" rx="2" ry="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    <line x1="16" y1="7" x2="8" y2="7" strokeLinecap="round" strokeLinejoin="round"/>
-                    <line x1="16" y1="11" x2="8" y2="11" strokeLinecap="round" strokeLinejoin="round"/>
-                    <line x1="16" y1="15" x2="8" y2="15" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+                  <Calculator className="w-5 h-5 text-black" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Calculator preț</h3>
@@ -147,6 +149,8 @@ export default function HeroSection() {
               </div>
             </CardContent>
           </Card>
+          {/* Drawer instance for calculator */}
+          <CostCalculatorDrawer open={isCalculatorOpen} onOpenChange={setIsCalculatorOpen} />
         </div>
       </div>
     </section>
