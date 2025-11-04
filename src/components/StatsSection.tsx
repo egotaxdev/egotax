@@ -70,7 +70,7 @@ const stats: StatItem[] = [
     color: "text-gray-900 dark:text-white" // Черный/белый
   },
   { 
-    number: 15, 
+    number: 7, 
     label: "Ani experiență", 
     description: "experiență cumulată a echipei",
     icon: <Award className="w-8 h-8" />,
@@ -190,8 +190,8 @@ export default function StatsSection() {
                         <CountUp
                           to={stat.number}
                           from={0}
-                          duration={2.8}
-                          delay={startAnimation ? index * 0.2 : 0}
+                          duration={0.5}
+                          delay={startAnimation ? index * 0.1 : 0}
                           startWhen={startAnimation}
                         />
                       </span>
