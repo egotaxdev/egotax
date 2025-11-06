@@ -136,7 +136,113 @@
   * {
     @apply border-border outline-ring/50;
   }
+  
   body {
     @apply bg-background text-foreground;
+    /* Оптимизация для плавного скроллинга */
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Оптимизация производительности рендеринга */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Оптимизация для анимаций */
+  .animate-optimized {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Предотвращение дергания при скролле */
+  .scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+  
+  /* Специальные стили для секции с картой */
+  .scroll-optimized {
+    contain: layout style paint;
+    isolation: isolate;
+  }
+
+  .scroll-optimized * {
+    will-change: auto;
+  }
+
+  .scroll-optimized iframe {
+    contain: strict;
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  /* Предотвращение дергания при скролле для карты */
+  .map-container {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .map-iframe {
+    pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Оптимизация для мобильных устройств при скролле */
+  @media (max-width: 768px) {
+    .scroll-optimized {
+      -webkit-overflow-scrolling: touch;
+      overflow-scrolling: touch;
+    }
+    
+    .map-iframe {
+      pointer-events: none;
+    }
+    
+    .scroll-optimized:hover .map-iframe {
+      pointer-events: auto;
+    }
+  }
+}
+
+/* Динамические переменные для оптимизации скролла */
+:root {
+  --scroll-direction: none;
+  --scroll-y: 0px;
+  --viewport-height: 100vh;
+}
+
+/* Медиа запросы для оптимизации мобильных устройств */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+}
+
+/* Оптимизация для Safari */
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .gpu-accelerated {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* Оптимизация для Firefox */
+@-moz-document url-prefix() {
+  .gpu-accelerated {
+    will-change: transform;
   }
 }
