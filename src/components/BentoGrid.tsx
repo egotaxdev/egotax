@@ -1,68 +1,210 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeShimmerButton } from '@/components/ui/theme-shimmer-button';
 import { ChartRadarGridCircleFill } from './ui/shadcn-io/radar-chart-09';
-import { 
-  ArrowUpRight, 
-  FileText, 
-  TrendingUp, 
-  RefreshCw, 
-  BarChart3, 
+import {
+  ArrowUpRight,
+  FileText,
+  TrendingUp,
+  RefreshCw,
+  BarChart3,
   Rocket,
   Calculator
 } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
 import { SplittingText } from '@/components/ui/shadcn-io/splitting-text';
 import { motion } from 'framer-motion';
-import CostCalculatorDrawer from '@/components/CostCalculatorDrawer';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
+import Link from 'next/link';
+import OCRequestForm from '@/components/OCRequestForm';
 
 const BentoGrid: React.FC = () => {
+  const [isOCFormOpen, setIsOCFormOpen] = useState(false);
   const { ref: gridRef, inView: gridInView } = useInView({ threshold: 0.1, triggerOnce: true });
   const { ref: chartRef, inView: chartInView } = useInView({ threshold: 0.3, triggerOnce: true });
-  const [isCalculatorModalOpen, setIsCalculatorModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Современные варианты анимации в стиле топовых сайтов 2025
   const blockVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 30, 
+    hidden: isMobile ? { opacity: 1, y: 0, scale: 1 } : {
+      opacity: 0,
+      y: 30,
       scale: 0.95
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
-      transition: {
+      transition: isMobile ? {} : {
         duration: 0.5
       }
     }
   };
 
+  // Данные для карточек услуг (используется в мобильной версии)
+  const services = [
+    {
+      href: '/servicii/servicii-contabile',
+      icon: FileText,
+      title: 'Servicii de evidență contabilă',
+      description: 'Scăpăm de observațiile Fiscului, de blocări și de debitări neclare.',
+    },
+    {
+      href: '/servicii/consultanta-fiscala',
+      icon: TrendingUp,
+      title: 'Consultanță fiscală',
+      description: 'Vă ajutăm să respectați obligațiile legale și optimizăm taxele.',
+    },
+    {
+      href: '/servicii/restabilirea-evidentei',
+      icon: RefreshCw,
+      title: 'Restabilirea evidenței contabile',
+      description: 'Restabilim evidența pentru perioade anterioare.',
+    },
+    {
+      href: '/servicii/analiza-financiara',
+      icon: BarChart3,
+      title: 'Analiză și diagnostic financiar',
+      description: 'Analizăm situația financiară și oferim recomandări.',
+    },
+    {
+      href: '/servicii/suport-initiere-afacere',
+      icon: Rocket,
+      title: 'Suport în inițierea afacerii',
+      description: 'Vă ajutăm să porniți afacerea cu toate documentele necesare.',
+    },
+  ];
+
   return (
     <TooltipProvider>
-      <section className="py-16 px-4 max-w-7xl mx-auto">
+      <section ref={gridRef} className="py-12 lg:py-16 px-4 max-w-7xl mx-auto">
         {/* Заголовок секции */}
-        <div className="mb-12 text-center">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white uppercase">
-            <SplittingText 
-              text="Servicii"
-              type="chars"
-              inView={true}
-              motionVariants={{
-                initial: { x: 150, opacity: 0 },
-                animate: { x: 0, opacity: 1 },
-                transition: { duration: 0.7, ease: "easeOut" },
-                stagger: 0.05
-              }}
-              delay={300}
-            />
+        <div className="mb-8 lg:mb-12 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white uppercase">
+            {isMobile ? (
+              "Servicii"
+            ) : (
+              <SplittingText
+                text="Servicii"
+                type="chars"
+                inView={true}
+                motionVariants={{
+                  initial: { x: 150, opacity: 0 },
+                  animate: { x: 0, opacity: 1 },
+                  transition: { duration: 0.7, ease: "easeOut" },
+                  stagger: 0.05
+                }}
+                delay={300}
+              />
+            )}
           </h2>
         </div>
-      
-      <div ref={gridRef} className="grid grid-cols-7 grid-rows-10 gap-4 h-[800px]">
-        <motion.div 
+
+        {/* Mobile Layout */}
+        <div className="flex flex-col gap-4 lg:hidden">
+          {/* Главный текстовый блок */}
+          <motion.div
+            initial="hidden"
+            animate={gridInView ? "visible" : "hidden"}
+            variants={blockVariants}
+            className="rounded-xl bg-gradient-to-r from-[#FFB343] via-[#FFC56D] to-[#FFB343] p-6"
+          >
+            <p className="text-base sm:text-lg font-bold text-black leading-relaxed text-center">
+              Ne mândrim cu livrarea serviciilor de calitate și adaptate nevoilor dvs unice. Descoperiți diferența de a lucra cu o firmă care apreciază bunăstarea financiară a clienților săi.
+            </p>
+          </motion.div>
+
+          {/* Карточки услуг */}
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            return (
+              <motion.div
+                key={service.href}
+                initial="hidden"
+                animate={gridInView ? "visible" : "hidden"}
+                variants={{
+                  ...blockVariants,
+                  visible: {
+                    ...blockVariants.visible,
+                    transition: {
+                      ...blockVariants.visible.transition,
+                      delay: index * 0.1
+                    }
+                  }
+                }}
+              >
+                <Link
+                  href={service.href}
+                  className="block rounded-xl border border-gray-200 dark:border-gray-700 p-5 transition-all duration-300 active:scale-[0.98] hover:border-gray-300 dark:hover:border-gray-600"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconComponent className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {service.description}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="w-5 h-5 text-gray-400 flex-shrink-0 mt-1" />
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+
+          {/* Кнопка калькулятора */}
+          <motion.div
+            initial="hidden"
+            animate={gridInView ? "visible" : "hidden"}
+            variants={blockVariants}
+          >
+            <Link
+              href="/calculator"
+              className="flex items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 p-5 transition-all duration-300 active:scale-[0.98]"
+            >
+              <div className="w-12 h-12 bg-[#FFB343] text-black rounded-full flex items-center justify-center">
+                <Calculator className="w-6 h-6" />
+              </div>
+              <span className="text-lg font-bold text-gray-900 dark:text-white">
+                Calculator preț
+              </span>
+              <ArrowUpRight className="w-5 h-5 text-gray-400 flex-shrink-0" />
+            </Link>
+          </motion.div>
+
+          {/* CTA кнопка */}
+          <motion.button
+            initial="hidden"
+            animate={gridInView ? "visible" : "hidden"}
+            variants={blockVariants}
+            onClick={() => setIsOCFormOpen(true)}
+            className="w-full bg-gradient-to-r from-[#FFB343] via-[#FFC56D] to-[#FFB343] text-black font-bold py-4 rounded-xl uppercase text-sm shadow-lg active:scale-[0.98]"
+          >
+            <span className="flex items-center justify-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
+              </svg>
+              Obțineți un OC personalizat
+            </span>
+          </motion.button>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden lg:grid grid-cols-7 grid-rows-10 gap-4 h-[800px]">
+        <motion.a
+          href="/servicii/servicii-contabile"
           initial="hidden"
           animate={gridInView ? "visible" : "hidden"}
           variants={{
@@ -86,7 +228,7 @@ const BentoGrid: React.FC = () => {
                 <ArrowUpRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 group-hover:text-[#FFE500] transition-colors duration-300">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 group-hover:text-[#FFB343] transition-colors duration-300">
               Servicii de evidență contabilă
             </h2>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-8">
@@ -107,11 +249,11 @@ const BentoGrid: React.FC = () => {
               </svg>
             </ThemeShimmerButton>
           </div>
-        </motion.div>
+        </motion.a>
         
         <Tooltip>
           <TooltipTrigger asChild>
-            <motion.div 
+            <motion.div
               initial="hidden"
               animate={gridInView ? "visible" : "hidden"}
               variants={{
@@ -124,28 +266,24 @@ const BentoGrid: React.FC = () => {
                   }
                 }
               }}
-              className="col-span-3 row-span-6 col-start-3 rounded-lg border border-gray-200 dark:border-gray-700 relative bg-gradient-to-r from-[#ffe502] via-[#ffed33] to-[#ffe502] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-yellow-400/30 hover:-translate-y-1 hover:from-[#ffed33] hover:via-[#ffe502] hover:to-[#ffed33]"
+              className="col-span-3 row-span-6 col-start-3 rounded-lg border border-gray-200 dark:border-gray-700 relative bg-gradient-to-r from-[#FFB343] via-[#FFC56D] to-[#FFB343] overflow-hidden cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-[#FFB343]/30 hover:-translate-y-1 hover:from-[#FFC56D] hover:via-[#FFB343] hover:to-[#FFC56D]"
             >
-              <div className="flex h-full">
-                <div className="flex-1 flex flex-col justify-center pl-6 pr-3">
-                  <div className="text-3xl font-bold text-black mb-2">Vă creștem profitul, în mod legal.</div>
-                </div>
-                <div className="flex-1 flex items-end justify-end">
-                  <img 
-                    src="/img.png" 
-                    alt="Servicii contabile" 
-                    className="w-full h-full object-cover object-bottom"
-                  />
+              <div className="flex h-full items-center justify-center px-8">
+                <div className="text-center">
+                  <p className="text-xl font-bold text-black leading-relaxed">
+                    Ne mândrim cu livrarea serviciilor de calitate și adaptate nevoilor dvs unice. Descoperiți diferența de a lucra cu o firmă care apreciază și are grijă de bunăstarea financiară a clienților săi.
+                  </p>
                 </div>
               </div>
             </motion.div>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Servicii profesionale de contabilitate pentru creșterea profitabilității afacerii dumneavoastră</p>
+            <p>Servicii profesionale de contabilitate adaptate nevoilor dumneavoastră</p>
           </TooltipContent>
         </Tooltip>
         
-        <motion.div 
+        <motion.a
+          href="/servicii/consultanta-fiscala"
           initial="hidden"
           animate={gridInView ? "visible" : "hidden"}
           variants={{
@@ -169,7 +307,7 @@ const BentoGrid: React.FC = () => {
                 <ArrowUpRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 group-hover:text-[#FFE500] transition-colors duration-300">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 group-hover:text-[#FFB343] transition-colors duration-300">
               Consultanță fiscală
             </h2>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-8">
@@ -179,9 +317,9 @@ const BentoGrid: React.FC = () => {
           <div ref={chartRef} className="flex-1 min-h-0">
             <ChartRadarGridCircleFill isVisible={chartInView} />
           </div>
-        </motion.div>
+        </motion.a>
         
-        <motion.button 
+        <motion.button
           initial="hidden"
           animate={gridInView ? "visible" : "hidden"}
           variants={{
@@ -194,22 +332,24 @@ const BentoGrid: React.FC = () => {
               }
             }
           }}
-          className="col-span-3 col-start-3 row-start-7 group relative overflow-hidden bg-gradient-to-r from-[#ffe502] via-[#ffed33] to-[#ffe502] hover:from-[#ffed33] hover:via-[#ffe502] hover:to-[#ffed33] text-black font-bold rounded-lg transition-all duration-500 ease-out uppercase text-sm shadow-lg hover:shadow-2xl hover:shadow-yellow-400/30 transform hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center"
+          onClick={() => setIsOCFormOpen(true)}
+          className="col-span-3 col-start-3 row-start-7 group relative overflow-hidden bg-gradient-to-r from-[#FFB343] via-[#FFC56D] to-[#FFB343] hover:from-[#FFC56D] hover:via-[#FFB343] hover:to-[#FFC56D] text-black font-bold rounded-lg transition-all duration-500 ease-out uppercase text-sm shadow-lg hover:shadow-2xl hover:shadow-[#FFB343]/30 transform hover:scale-105 active:scale-95 cursor-pointer flex items-center justify-center"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/10 to-yellow-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FFB343]/0 via-[#FFB343]/10 to-[#FFB343]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <span className="relative z-10 flex items-center gap-2">
             <svg className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
             </svg>
             Obțineți un OC personalizat
           </span>
-          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#FFB343]/20 to-[#FF9F2E]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
         </motion.button>
         
         <Tooltip>
           <TooltipTrigger asChild>
-            <motion.div 
+            <motion.a
+              href="/servicii/restabilirea-evidentei"
               initial="hidden"
               animate={gridInView ? "visible" : "hidden"}
               variants={{
@@ -232,12 +372,12 @@ const BentoGrid: React.FC = () => {
                   <ArrowUpRight className="w-6 h-6 text-gray-400 dark:text-gray-500 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-[#FFE500] transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-[#FFB343] transition-colors duration-300">
                     Restabilirea evidenței contabile
                   </h3>
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           </TooltipTrigger>
           <TooltipContent>
             <p>Restabilim evidența contabilă pentru perioade anterioare și corectăm erorile</p>
@@ -246,7 +386,8 @@ const BentoGrid: React.FC = () => {
         
         <Tooltip>
           <TooltipTrigger asChild>
-            <motion.div 
+            <motion.a
+              href="/servicii/analiza-financiara"
               initial="hidden"
               animate={gridInView ? "visible" : "hidden"}
               variants={{
@@ -269,12 +410,12 @@ const BentoGrid: React.FC = () => {
                   <ArrowUpRight className="w-6 h-6 text-gray-400 dark:text-gray-500 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-[#FFE500] transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-[#FFB343] transition-colors duration-300">
                     Analiză și diagnostic financiar
                   </h3>
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           </TooltipTrigger>
           <TooltipContent>
             <p>Analizăm situația financiară și oferim recomandări pentru optimizare</p>
@@ -283,7 +424,8 @@ const BentoGrid: React.FC = () => {
         
         <Tooltip>
           <TooltipTrigger asChild>
-            <motion.div 
+            <motion.a
+              href="/servicii/suport-initiere-afacere"
               initial="hidden"
               animate={gridInView ? "visible" : "hidden"}
               variants={{
@@ -306,12 +448,12 @@ const BentoGrid: React.FC = () => {
                   <ArrowUpRight className="w-6 h-6 text-gray-400 dark:text-gray-500 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-[#FFE500] transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-[#FFB343] transition-colors duration-300">
                     Suport în inițierea afacerii
                   </h3>
                 </div>
               </div>
-            </motion.div>
+            </motion.a>
           </TooltipTrigger>
           <TooltipContent>
             <p>Vă ajutăm să porniți afacerea cu toate documentele și procedurile necesare</p>
@@ -320,7 +462,7 @@ const BentoGrid: React.FC = () => {
         
         <Tooltip>
           <TooltipTrigger asChild>
-            <motion.div 
+            <motion.div
               initial="hidden"
               animate={gridInView ? "visible" : "hidden"}
               variants={{
@@ -333,17 +475,19 @@ const BentoGrid: React.FC = () => {
                   }
                 }
               }}
-              className="col-span-1 row-span-2 col-start-7 row-start-8 rounded-lg border border-gray-200 dark:border-gray-700 relative p-4 cursor-pointer transition-all duration-300 hover:scale-[1.08] hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-800/50 hover:border-gray-300 dark:hover:border-gray-600 hover:-translate-y-2 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 group"
-              onClick={() => setIsCalculatorModalOpen(true)}
+              className="col-span-1 row-span-2 col-start-7 row-start-8"
             >
-              <div className="h-full flex flex-col items-center justify-center gap-2">
-                <div className="w-12 h-12 bg-[#FFE500] text-black rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-yellow-400/30">
+              <Link
+                href="/calculator"
+                className="h-full rounded-lg border border-gray-200 dark:border-gray-700 relative p-4 cursor-pointer transition-all duration-300 hover:scale-[1.08] hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-800/50 hover:border-gray-300 dark:hover:border-gray-600 hover:-translate-y-2 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 group flex flex-col items-center justify-center gap-2"
+              >
+                <div className="w-12 h-12 bg-[#FFB343] text-black rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-lg group-hover:shadow-[#FFB343]/30">
                   <Calculator className="w-6 h-6" />
                 </div>
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 text-center transition-all duration-300 group-hover:text-[#FFE500]">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 text-center transition-all duration-300 group-hover:text-[#FFB343]">
                   Calculator preț
                 </span>
-              </div>
+              </Link>
             </motion.div>
           </TooltipTrigger>
           <TooltipContent>
@@ -351,12 +495,9 @@ const BentoGrid: React.FC = () => {
           </TooltipContent>
         </Tooltip>
       </div>
-      
-      {/* Calculator Modal */}
-      <CostCalculatorDrawer 
-        open={isCalculatorModalOpen} 
-        onOpenChange={setIsCalculatorModalOpen} 
-      />
+
+      {/* OC Request Form */}
+      <OCRequestForm open={isOCFormOpen} onOpenChange={setIsOCFormOpen} />
     </section>
     </TooltipProvider>
   );

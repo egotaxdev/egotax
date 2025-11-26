@@ -1,0 +1,5 @@
+.highlight-viziunea .word:first-child,
+.highlight-misiunea .word:first-child {
+  color: #FFB343 !important;
+  font-weight: 700 !important;
+}

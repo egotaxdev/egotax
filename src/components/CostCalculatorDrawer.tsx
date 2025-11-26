@@ -39,15 +39,15 @@ export default function CostCalculatorDrawer({ open, onOpenChange }: CostCalcula
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
       <DrawerContent className="h-[100vh] max-h-[100vh] flex flex-col">
-        <DrawerHeader className="flex-shrink-0 w-full max-w-7xl mx-auto px-6 pt-6 pb-4 border-b border-gray-200 dark:border-gray-700 relative">
-          <DrawerTitle className="flex items-center gap-2 text-xl font-semibold">
-            <Calculator className="h-6 w-6 text-[#ffe502]" />
+        <DrawerHeader className="flex-shrink-0 w-full max-w-7xl mx-auto px-4 lg:px-6 pt-4 lg:pt-6 pb-3 lg:pb-4 border-b border-gray-200 dark:border-gray-700 relative">
+          <DrawerTitle className="flex items-center gap-2 text-base lg:text-xl font-semibold">
+            <Calculator className="h-5 w-5 lg:h-6 lg:w-6 text-[#FFB343]" />
             Calculator de costuri
           </DrawerTitle>
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-4 top-4 h-8 w-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+            className="absolute right-3 lg:right-4 top-3 lg:top-4 h-8 w-8 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-[0.95] cursor-pointer"
             onClick={() => onOpenChange(false)}
           >
             <X className="h-4 w-4" />
@@ -58,7 +58,7 @@ export default function CostCalculatorDrawer({ open, onOpenChange }: CostCalcula
           data-lenis-prevent
           onWheel={(e) => e.stopPropagation()}
         >
-          <div className="w-full max-w-7xl mx-auto px-6 py-6">
+          <div className="w-full max-w-7xl mx-auto px-4 lg:px-6 py-4 lg:py-6">
             <CostCalculator isModal={true} />
           </div>
         </div>

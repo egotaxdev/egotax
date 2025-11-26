@@ -21,7 +21,7 @@ export default function BackgroundChart() {
       <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-gradient-to-r from-green-400/10 to-blue-400/10 rounded-full blur-3xl animate-pulse transition-all duration-500 group-hover:scale-125 group-hover:from-green-400/20 group-hover:to-blue-400/20" style={{ animationDelay: '2s' }} />
       
       {/* Новые анимированные элементы при ховере */}
-      <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-gradient-to-r from-yellow-400/0 to-orange-400/0 rounded-full blur-2xl transition-all duration-700 group-hover:w-40 group-hover:h-40 group-hover:from-yellow-400/15 group-hover:to-orange-400/15 transform -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-gradient-to-r from-[#FFB343]/0 to-[#FF9F2E]/0 rounded-full blur-2xl transition-all duration-700 group-hover:w-40 group-hover:h-40 group-hover:from-[#FFB343]/15 group-hover:to-[#FF9F2E]/15 transform -translate-x-1/2 -translate-y-1/2" />
     </div>
   );
 }

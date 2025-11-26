@@ -18,14 +18,14 @@ interface CostCalculatorModalProps {
 export default function CostCalculatorModal({ open, onOpenChange }: CostCalculatorModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
-        <DialogHeader className="px-6 pt-6 pb-0">
-          <DialogTitle className="flex items-center gap-2 text-xl font-semibold">
-            <Calculator className="h-6 w-6 text-[#ffe502]" />
+      <DialogContent className="max-w-[calc(100vw-2rem)] sm:max-w-2xl lg:max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+        <DialogHeader className="px-4 lg:px-6 pt-4 lg:pt-6 pb-0">
+          <DialogTitle className="flex items-center gap-2 text-base lg:text-xl font-semibold">
+            <Calculator className="h-5 w-5 lg:h-6 lg:w-6 text-[#FFB343]" />
             Calculator de costuri
           </DialogTitle>
         </DialogHeader>
-        <div className="px-6 pb-6">
+        <div className="px-4 lg:px-6 pb-4 lg:pb-6">
           <CostCalculator isModal={true} />
         </div>
       </DialogContent>

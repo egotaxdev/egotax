@@ -16,7 +16,7 @@ export default function SectionDivider({
   const getGradientClass = () => {
     switch (variant) {
       case "accent":
-        return "bg-gradient-to-r from-transparent via-[#ffe502]/30 to-transparent";
+        return "bg-gradient-to-r from-transparent via-[#FFB343]/30 to-transparent";
       case "subtle":
         return "bg-gradient-to-r from-transparent via-gray-300/20 to-transparent dark:via-gray-600/20";
       default:
@@ -29,7 +29,7 @@ export default function SectionDivider({
       return "bg-transparent";
     }
     return background === "light" 
-      ? "bg-white dark:bg-black" 
+      ? "bg-white dark:bg-[#1e1e1e]" 
       : "bg-black dark:bg-white";
   };
 

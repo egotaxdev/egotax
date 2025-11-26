@@ -27,7 +27,7 @@ const chartConfig = {
   },
   mobile: {
     label: "Mobile", 
-    color: "#FFE500", // Желтый цвет для нижней линии
+    color: "#FFB343", // Желто-оранжевый цвет для нижней линии
   },
 } satisfies ChartConfig
 

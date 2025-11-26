@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -37,7 +37,7 @@ const stats: StatItem[] = [
     suffix: "+",
     progress: 95,
     badge: "Anual",
-    color: "text-[#FFE500]" // Желтый
+    color: "text-[#FFB343]" // Желто-оранжевый
   },
   { 
     number: 98, 
@@ -57,7 +57,7 @@ const stats: StatItem[] = [
     suffix: "+",
     progress: 85,
     badge: "Creștere",
-    color: "text-[#FFE500]" // Желтый
+    color: "text-[#FFB343]" // Желто-оранжевый
   },
   { 
     number: 2, 
@@ -77,7 +77,7 @@ const stats: StatItem[] = [
     suffix: "+",
     progress: 100,
     badge: "Expert",
-    color: "text-[#FFE500]" // Желтый
+    color: "text-[#FFB343]" // Желто-оранжевый
   },
   { 
     number: 100, 
@@ -91,76 +91,137 @@ const stats: StatItem[] = [
   }
 ];
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
-    y: 40,
-    scale: 0.95 
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.7,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
-
 export default function StatsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [startAnimation, setStartAnimation] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (isInView) {
       const timer = setTimeout(() => {
         setStartAnimation(true);
-      }, 400);
+      }, isMobile ? 0 : 400);
       return () => clearTimeout(timer);
     }
-  }, [isInView]);
+  }, [isInView, isMobile]);
+
+  const containerVariants = {
+    hidden: isMobile ? { opacity: 1 } : { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: isMobile ? {} : {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: isMobile ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: isMobile ? {} : {
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
+      },
+    },
+  };
 
   return (
-    <section id="stats" className="py-24 bg-white dark:bg-black">
+    <section ref={ref} id="stats" className="py-12 lg:py-24 bg-white dark:bg-[#1e1e1e]">
       <div className="w-full max-w-[1400px] mx-auto px-4">
         {/* Header */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+        <motion.div
+          className="text-center mb-8 lg:mb-16"
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 })}
+          transition={isMobile ? {} : { duration: 0.6 }}
         >
-          <Badge variant="outline" className="mb-4 text-sm font-medium">
+          <Badge variant="outline" className="mb-3 lg:mb-4 text-xs lg:text-sm font-medium">
             Rezultate măsurabile
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2 lg:mb-4">
             Cifre care vorbesc
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-sm lg:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Performanțele noastre demonstrează angajamentul față de excelența în serviciile fiscale
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* Mobile Stats Grid - Compact 2 columns */}
         <motion.div
-          ref={ref}
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-2 gap-3 lg:hidden"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="group relative"
+            >
+              <Card className="relative overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-900/50">
+                <CardContent className="p-4">
+                  {/* Icon and Badge row */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`${stat.color} opacity-80 [&>svg]:w-5 [&>svg]:h-5`}>
+                      {stat.icon}
+                    </div>
+                    <Badge
+                      variant="secondary"
+                      className="text-[10px] font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-1.5 py-0.5"
+                    >
+                      {stat.badge}
+                    </Badge>
+                  </div>
+
+                  {/* Number */}
+                  <div className="mb-1">
+                    <div className="flex items-baseline gap-0.5">
+                      <span className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>
+                        <CountUp
+                          to={stat.number}
+                          from={0}
+                          duration={0.5}
+                          delay={startAnimation ? index * 0.05 : 0}
+                          startWhen={startAnimation}
+                        />
+                      </span>
+                      {stat.suffix && (
+                        <span className={`text-sm font-semibold ${stat.color} opacity-80`}>
+                          {stat.suffix}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Label only (no description on mobile) */}
+                  <h3 className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white leading-tight">
+                    {stat.label}
+                  </h3>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Desktop Stats Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="hidden lg:grid grid-cols-3 gap-8"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -172,8 +233,8 @@ export default function StatsSection() {
                 <CardContent className="p-8">
                   {/* Badge */}
                    <div className="flex items-center justify-between mb-6">
-                     <Badge 
-                       variant="secondary" 
+                     <Badge
+                       variant="secondary"
                        className="text-xs font-semibold bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
                      >
                        {stat.badge}
@@ -224,8 +285,8 @@ export default function StatsSection() {
                           {stat.progress}%
                         </span>
                       </div>
-                      <Progress 
-                        value={startAnimation ? stat.progress : 0} 
+                      <Progress
+                        value={startAnimation ? stat.progress : 0}
                         className="h-2 bg-gray-200 dark:bg-gray-700"
                       />
                     </div>
@@ -233,9 +294,9 @@ export default function StatsSection() {
 
                   {/* Hover Effect Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gray-50/50 dark:to-gray-800/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-lg"></div>
-                  
+
                   {/* Top Accent Line */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFE500] via-[#FFE500] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-t-lg"></div>
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFB343] via-[#FFB343] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-t-lg"></div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -243,13 +304,13 @@ export default function StatsSection() {
         </motion.div>
 
         {/* Bottom CTA */}
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+        <motion.div
+          className="text-center mt-8 lg:mt-16"
+          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 })}
+          transition={isMobile ? {} : { duration: 0.6, delay: 0.8 }}
         >
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+          <p className="text-gray-600 dark:text-gray-400 text-xs lg:text-sm">
             Statistici actualizate în timp real • Ultima actualizare: {new Date().toLocaleDateString('ro-RO')}
           </p>
         </motion.div>

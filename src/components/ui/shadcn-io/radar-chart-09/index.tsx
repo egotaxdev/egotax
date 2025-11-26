@@ -25,7 +25,7 @@ const chartData = [
 const chartConfig = {
   profit: {
     label: "Profit Net (MDL)",
-    color: "#ffe502",
+    color: "#FFB343",
   },
 } satisfies ChartConfig
 
@@ -51,13 +51,13 @@ export function ChartRadarGridCircleFill({ isVisible = false }: { isVisible?: bo
           <RadarChart data={animatedData}>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <PolarGrid
-              className="fill-[#ffe502] opacity-20"
+              className="fill-[#FFB343] opacity-20"
               gridType="circle"
             />
             <PolarAngleAxis dataKey="month" />
             <Radar
               dataKey="profit"
-              fill="#ffe502"
+              fill="#FFB343"
               fillOpacity={0.5}
             />
           </RadarChart>
