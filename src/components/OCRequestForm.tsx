@@ -83,6 +83,7 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
       setTimeout(() => {
         setFormData(initialFormData);
         setIsSuccess(false);
+        setError(null);
       }, 300);
     }
   }, [open]);
@@ -100,12 +101,41 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
     }));
   };
 
+  const [error, setError] = useState<string | null>(null);
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/submit-oc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email || undefined,
+          companyName: formData.company || undefined,
+          services: formData.services,
+          message: formData.message || undefined,
+          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Eroare la trimiterea cererii');
+      }
+
+      setIsSuccess(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Eroare la trimiterea cererii');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const canSubmit = formData.name.trim() && formData.phone.trim();
@@ -329,6 +359,11 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
       {/* Footer with submit button */}
       {!isSuccess && (
         <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 flex-shrink-0">
+          {error && (
+            <div className="mb-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+            </div>
+          )}
           <Button
             onClick={handleSubmit}
             disabled={!canSubmit || isSubmitting}

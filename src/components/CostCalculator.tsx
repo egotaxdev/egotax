@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/drawer'
 import { Calculator, Building2, Users, Car, CreditCard, Banknote, Settings, Check, ChevronsUpDown, X, ChevronRight, Phone, Briefcase, Activity } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
+import CalculatorRequestForm from '@/components/CalculatorRequestForm'
 
 interface CalculatorData {
   legalForm: string
@@ -105,6 +105,7 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
   const [legalFormDrawerOpen, setLegalFormDrawerOpen] = useState(false)
   const [activityDrawerOpen, setActivityDrawerOpen] = useState(false)
   const [advancedDrawerOpen, setAdvancedDrawerOpen] = useState(false)
+  const [requestFormOpen, setRequestFormOpen] = useState(false)
 
   // Funcția de calculare a costului
   const calculateCost = () => {
@@ -608,14 +609,39 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
                     <span className="text-sm text-gray-500">lei/lună</span>
                   </div>
                 </div>
-                <Link href="/contact" className="flex-shrink-0">
-                  <Button className="bg-[#FFB343] hover:bg-[#FF9F2E] text-black font-semibold h-12 px-6 active:scale-[0.98]">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Consultație
-                  </Button>
-                </Link>
+                <Button
+                  onClick={() => setRequestFormOpen(true)}
+                  className="bg-[#FFB343] hover:bg-[#FF9F2E] text-black font-semibold h-12 px-6 active:scale-[0.98] flex-shrink-0"
+                >
+                  <Phone className="w-4 h-4 mr-2" />
+                  Consultație
+                </Button>
               </div>
             </div>
+
+            {/* Calculator Request Form */}
+            <CalculatorRequestForm
+              open={requestFormOpen}
+              onOpenChange={setRequestFormOpen}
+              calculatorData={{
+                legalForm: data.legalForm,
+                legalFormLabel: getLegalFormLabel(),
+                activityTypes: data.activityTypes.map(v => activityTypes.find(a => a.value === v)?.label || v),
+                operationsCount: data.operationsCount,
+                hasAdditionalActivity: data.hasAdditionalActivity,
+                isVATpayer: data.isVATpayer,
+                employeesCount: data.employeesCount,
+                cashRegisters: data.cashRegisters,
+                posTerminals: data.posTerminals,
+                vehicles: data.vehicles,
+                individualRentals: data.individualRentals,
+                credits: data.credits,
+                leasing: data.leasing,
+                businessTrips: data.businessTrips,
+                bankAccounts: data.bankAccounts,
+                estimatedCost: calculatedCost,
+              }}
+            />
           </div>
 
           {/* ============ DESKTOP VERSION ============ */}
@@ -932,11 +958,12 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
               </div>
             )}
 
-            <Link href="/contact">
-              <Button className="w-full bg-[#FFB343] hover:bg-[#FF9F2E] text-black font-semibold h-12 text-base">
-                Consultație
-              </Button>
-            </Link>
+            <Button
+              onClick={() => setRequestFormOpen(true)}
+              className="w-full bg-[#FFB343] hover:bg-[#FF9F2E] text-black font-semibold h-12 text-base"
+            >
+              Consultație
+            </Button>
 
             <p className="text-xs text-gray-500 dark:text-gray-400">
               * Costul final poate varia
@@ -945,6 +972,30 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
         </Card>
       </motion.div>
           </div>
+
+          {/* Desktop Calculator Request Form */}
+          <CalculatorRequestForm
+            open={requestFormOpen}
+            onOpenChange={setRequestFormOpen}
+            calculatorData={{
+              legalForm: data.legalForm,
+              legalFormLabel: getLegalFormLabel(),
+              activityTypes: data.activityTypes.map(v => activityTypes.find(a => a.value === v)?.label || v),
+              operationsCount: data.operationsCount,
+              hasAdditionalActivity: data.hasAdditionalActivity,
+              isVATpayer: data.isVATpayer,
+              employeesCount: data.employeesCount,
+              cashRegisters: data.cashRegisters,
+              posTerminals: data.posTerminals,
+              vehicles: data.vehicles,
+              individualRentals: data.individualRentals,
+              credits: data.credits,
+              leasing: data.leasing,
+              businessTrips: data.businessTrips,
+              bankAccounts: data.bankAccounts,
+              estimatedCost: calculatedCost,
+            }}
+          />
         </div>
       </div>
     </section>
