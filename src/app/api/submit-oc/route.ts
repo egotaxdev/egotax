@@ -64,10 +64,11 @@ export async function POST(request: NextRequest) {
       pageUrl: body.pageUrl,
     });
 
-    // Don't wait for Telegram, send in background
-    sendTelegramMessage({ text: telegramMessage }).catch(err => {
-      console.error('Telegram notification failed:', err);
-    });
+    // Wait for Telegram to complete
+    const telegramSent = await sendTelegramMessage({ text: telegramMessage });
+    if (!telegramSent) {
+      console.error('Telegram notification failed but data was saved');
+    }
 
     return NextResponse.json({
       success: true,
