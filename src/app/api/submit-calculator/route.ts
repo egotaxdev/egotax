@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, CalculatorRequest } from '@/lib/supabase';
 import { sendTelegramMessage, formatCalculatorRequestMessage } from '@/lib/telegram';
 
+// Force Node.js runtime for better compatibility with external APIs
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

@@ -13,34 +13,53 @@ export async function sendTelegramMessage(message: TelegramMessage): Promise<boo
     return false;
   }
 
-  try {
-    const response = await fetch(
-      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message.text,
-          parse_mode: message.parse_mode || 'HTML',
-          disable_web_page_preview: message.disable_web_page_preview ?? true,
-        }),
+  const maxRetries = 3;
+  let lastError: Error | null = null;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+      const response = await fetch(
+        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: message.text,
+            parse_mode: message.parse_mode || 'HTML',
+            disable_web_page_preview: message.disable_web_page_preview ?? true,
+          }),
+          signal: controller.signal,
+        }
+      );
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const error = await response.json();
+        console.error('Telegram API error:', error);
+        return false;
       }
-    );
 
-    if (!response.ok) {
-      const error = await response.json();
-      console.error('Telegram API error:', error);
-      return false;
+      return true;
+    } catch (error) {
+      lastError = error as Error;
+      console.error(`Telegram send attempt ${attempt}/${maxRetries} failed:`, error);
+
+      if (attempt < maxRetries) {
+        // Wait before retry (exponential backoff)
+        await new Promise(resolve => setTimeout(resolve, attempt * 1000));
+      }
     }
-
-    return true;
-  } catch (error) {
-    console.error('Failed to send Telegram message:', error);
-    return false;
   }
+
+  console.error('Failed to send Telegram message after all retries:', lastError);
+  return false;
 }
 
 // Format OC request for Telegram
