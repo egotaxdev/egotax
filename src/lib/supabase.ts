@@ -1,14 +1,27 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 // Client for browser usage (limited permissions)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Server client with service role (full permissions) - only use in API routes
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+// Lazy initialization to avoid errors in browser
+let _supabaseAdmin: SupabaseClient | null = null;
+
+export const supabaseAdmin = new Proxy({} as SupabaseClient, {
+  get(_, prop) {
+    if (!_supabaseAdmin) {
+      const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!supabaseServiceKey) {
+        throw new Error('supabaseAdmin can only be used in server-side code (API routes)');
+      }
+      _supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+    }
+    return (_supabaseAdmin as Record<string, unknown>)[prop as string];
+  }
+});
 
 // Types for database tables
 export interface OCRequest {

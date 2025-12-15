@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, OCRequest } from '@/lib/supabase';
 import { sendTelegramMessage, formatOCRequestMessage } from '@/lib/telegram';
+import { notifyNewOCRequest } from '@/lib/push-notifications';
 
 // Force Node.js runtime for better compatibility with external APIs
 export const runtime = 'nodejs';
@@ -69,6 +70,11 @@ export async function POST(request: NextRequest) {
     if (!telegramSent) {
       console.error('Telegram notification failed but data was saved');
     }
+
+    // Send push notification to admins (don't wait for it)
+    notifyNewOCRequest(body.name, body.services || []).catch(err => {
+      console.error('Push notification failed:', err);
+    });
 
     return NextResponse.json({
       success: true,

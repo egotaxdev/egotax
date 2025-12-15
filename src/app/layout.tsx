@@ -3,8 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import LenisProvider from "@/components/LenisProvider";
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
+import MainLayout from "@/components/MainLayout";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -30,9 +29,7 @@ export default function RootLayout({
             defaultTheme="system"
             storageKey="egotax-ui-theme"
           >
-            <NavBar />
-            {children}
-            <Footer />
+            <MainLayout>{children}</MainLayout>
           </ThemeProvider>
         </LenisProvider>
       </body>
