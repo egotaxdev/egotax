@@ -225,6 +225,8 @@ export async function createPayment(params: MaibPaymentRequest): Promise<MaibPay
     payload.items = params.items;
   }
 
+  console.log('maib request payload:', JSON.stringify(payload, null, 2));
+
   const response = await fetch(`${MAIB_API_URL}/pay`, {
     method: 'POST',
     headers: {
@@ -234,7 +236,19 @@ export async function createPayment(params: MaibPaymentRequest): Promise<MaibPay
     body: JSON.stringify(payload),
   });
 
-  const data: MaibPaymentResponse = await response.json();
+  const responseText = await response.text();
+  console.log('maib response:', responseText);
+
+  let data: MaibPaymentResponse;
+  try {
+    data = JSON.parse(responseText);
+  } catch {
+    console.error('Failed to parse maib response:', responseText);
+    return {
+      ok: false,
+      errors: [{ errorCode: 'PARSE_ERROR', errorMessage: responseText }],
+    };
+  }
   return data;
 }
 

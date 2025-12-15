@@ -82,14 +82,6 @@ export async function POST(request: NextRequest) {
       email: email ? email.substring(0, 40) : undefined,
       phone: phone ? phone.substring(0, 40) : undefined,
       orderId,
-      items: [
-        {
-          id: service,
-          name: serviceNames[service],
-          price: Number(amount.toFixed(2)),
-          quantity: 1,
-        },
-      ],
       callbackUrl,
       okUrl,
       failUrl,
