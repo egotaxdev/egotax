@@ -10,16 +10,25 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // Lazy initialization to avoid errors in browser
 let _supabaseAdmin: SupabaseClient | null = null;
 
+function getSupabaseAdmin(): SupabaseClient {
+  if (!_supabaseAdmin) {
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseServiceKey) {
+      throw new Error('supabaseAdmin can only be used in server-side code (API routes)');
+    }
+    _supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+  }
+  return _supabaseAdmin;
+}
+
 export const supabaseAdmin = new Proxy({} as SupabaseClient, {
   get(_, prop) {
-    if (!_supabaseAdmin) {
-      const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-      if (!supabaseServiceKey) {
-        throw new Error('supabaseAdmin can only be used in server-side code (API routes)');
-      }
-      _supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+    const client = getSupabaseAdmin();
+    const value = client[prop as keyof SupabaseClient];
+    if (typeof value === 'function') {
+      return value.bind(client);
     }
-    return (_supabaseAdmin as Record<string, unknown>)[prop as string];
+    return value;
   }
 });
 
