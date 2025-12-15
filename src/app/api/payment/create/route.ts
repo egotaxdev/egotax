@@ -64,9 +64,13 @@ export async function POST(request: NextRequest) {
 
     // Create payment in maib
     const paymentDescription = description || `${serviceNames[service]} - EgoTax`;
-    const fullClientName = companyName
-      ? `${companyName} (${clientName || ''})`.substring(0, 128)
-      : clientName?.substring(0, 128);
+    const fullClientName = companyName && clientName
+      ? `${companyName} (${clientName})`.substring(0, 128)
+      : companyName
+        ? companyName.substring(0, 128)
+        : clientName
+          ? clientName.substring(0, 128)
+          : undefined;
 
     const maibResponse = await createPayment({
       amount: Number(amount.toFixed(2)),
@@ -74,9 +78,9 @@ export async function POST(request: NextRequest) {
       clientIp,
       language: 'ro',
       description: paymentDescription.substring(0, 124), // maib limit
-      clientName: fullClientName,
-      email: email?.substring(0, 40),
-      phone: phone?.substring(0, 40),
+      clientName: fullClientName || undefined,
+      email: email ? email.substring(0, 40) : undefined,
+      phone: phone ? phone.substring(0, 40) : undefined,
       orderId,
       items: [
         {

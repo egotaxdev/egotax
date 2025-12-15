@@ -201,13 +201,37 @@ export async function getAccessToken(): Promise<string> {
 export async function createPayment(params: MaibPaymentRequest): Promise<MaibPaymentResponse> {
   const accessToken = await getAccessToken();
 
+  // Build clean payload - remove undefined/null values
+  const payload: Record<string, unknown> = {
+    amount: params.amount,
+    currency: params.currency,
+    clientIp: params.clientIp,
+    language: params.language,
+  };
+
+  // Only add optional fields if they have values
+  if (params.description) payload.description = params.description;
+  if (params.clientName) payload.clientName = params.clientName;
+  if (params.email) payload.email = params.email;
+  if (params.phone) payload.phone = params.phone;
+  if (params.orderId) payload.orderId = params.orderId;
+  if (params.delivery !== undefined) payload.delivery = params.delivery;
+  if (params.callbackUrl) payload.callbackUrl = params.callbackUrl;
+  if (params.okUrl) payload.okUrl = params.okUrl;
+  if (params.failUrl) payload.failUrl = params.failUrl;
+
+  // Only add items if array has elements
+  if (params.items && params.items.length > 0) {
+    payload.items = params.items;
+  }
+
   const response = await fetch(`${MAIB_API_URL}/pay`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${accessToken}`,
     },
-    body: JSON.stringify(params),
+    body: JSON.stringify(payload),
   });
 
   const data: MaibPaymentResponse = await response.json();
