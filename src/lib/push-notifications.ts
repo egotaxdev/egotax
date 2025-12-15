@@ -1,19 +1,22 @@
 import webpush from 'web-push';
 import { supabaseAdmin } from './supabase';
 
-// Configure web-push with VAPID keys
-const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || '';
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || '';
-const VAPID_SUBJECT = process.env.VAPID_SUBJECT || 'mailto:admin@egotax.md';
-
+// Lazy initialization of web-push
 let isConfigured = false;
 
 function configureWebPush() {
-  if (!isConfigured && VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
+  if (isConfigured) return true;
+
+  const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
+  const VAPID_SUBJECT = process.env.VAPID_SUBJECT || 'mailto:admin@egotax.md';
+
+  if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
     webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
     isConfigured = true;
+    return true;
   }
-  return isConfigured;
+  return false;
 }
 
 interface PushPayload {
