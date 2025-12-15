@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Phone, Sun, Moon, Menu, X, ChevronDown } from 'lucide-react';
+import { Phone, Sun, Moon, Menu, ChevronDown, CreditCard } from 'lucide-react';
 import { siViber, siTelegram } from 'simple-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -22,7 +22,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
 } from '@/components/ui/sheet';
 import {
   Collapsible,
@@ -55,25 +54,88 @@ export default function NavBar() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Prevent hydration mismatch by only calculating isDark after component mounts
   const isDark = mounted && (theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches));
 
   return (
-    <motion.nav 
+    <motion.div
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ 
-        duration: 0.6, 
+      transition={{
+        duration: 0.6,
         ease: [0.25, 0.46, 0.45, 0.94],
         delay: 0
       }}
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ${
-        isScrolled ? 'w-[95%] max-w-7xl' : 'w-[90%] max-w-6xl'
-      }`}
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled && "shadow-lg"
+      )}
     >
-      <div className="backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border border-white/20 dark:border-gray-700/30 rounded-2xl shadow-2xl shadow-black/10 dark:shadow-black/30">
-        <div className="px-6 py-4">
-          <div className="flex items-center justify-between">
+      {/* Top Bar - скрывается при скролле */}
+      <div className={cn(
+        "bg-gray-900 dark:bg-gray-950 text-white transition-all duration-300 overflow-hidden",
+        isScrolled ? "h-0 opacity-0" : "h-10 opacity-100"
+      )}>
+        <div className="max-w-7xl mx-auto px-4 h-full">
+          <div className="flex items-center justify-between h-full text-sm">
+            {/* Left - Phone */}
+            <a
+              href="tel:+37361142323"
+              className="flex items-center gap-2 hover:text-[#FFB343] transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">+(373) 61 142 323</span>
+              <span className="sm:hidden">Sună acum</span>
+            </a>
+
+            {/* Right - Social & Theme */}
+            <div className="flex items-center gap-3">
+              {/* Social Icons */}
+              <div className="flex items-center gap-1">
+                <a
+                  href="#"
+                  className="p-1.5 rounded-full hover:bg-white/10 text-purple-400 hover:text-purple-300 transition-colors"
+                  aria-label="Viber"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d={siViber.path} />
+                  </svg>
+                </a>
+                <a
+                  href="#"
+                  className="p-1.5 rounded-full hover:bg-white/10 text-blue-400 hover:text-blue-300 transition-colors"
+                  aria-label="Telegram"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d={siTelegram.path} />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="w-px h-4 bg-gray-700" />
+
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-1.5 rounded-full hover:bg-white/10 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {mounted && isDark ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Nav */}
+      <nav className={cn(
+        "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300",
+      )}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex-shrink-0">
               <a href="/" className="block">
@@ -90,16 +152,13 @@ export default function NavBar() {
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center">
               <NavigationMenu>
-                <NavigationMenuList className="space-x-2">
+                <NavigationMenuList className="space-x-1">
                   <NavigationMenuItem>
                     <NavigationMenuLink
                       href="/"
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "bg-transparent hover:bg-transparent font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
-                        "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:bg-primary",
-                        "after:transition-all after:duration-300 after:ease-out after:-translate-x-1/2",
-                        "hover:after:w-3/4"
+                        "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 font-medium text-foreground transition-all duration-200 cursor-pointer h-9"
                       )}
                     >
                       Acasă
@@ -108,10 +167,7 @@ export default function NavBar() {
 
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className={cn(
-                      "bg-transparent hover:bg-transparent font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
-                      "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:bg-primary",
-                      "after:transition-all after:duration-300 after:ease-out after:-translate-x-1/2",
-                      "hover:after:w-3/4"
+                      "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 font-medium text-foreground transition-all duration-200 cursor-pointer h-9"
                     )}>
                       Servicii
                     </NavigationMenuTrigger>
@@ -154,10 +210,7 @@ export default function NavBar() {
                       href="/despre-noi"
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "bg-transparent hover:bg-transparent font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
-                        "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:bg-primary",
-                        "after:transition-all after:duration-300 after:ease-out after:-translate-x-1/2",
-                        "hover:after:w-3/4"
+                        "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 font-medium text-foreground transition-all duration-200 cursor-pointer h-9"
                       )}
                     >
                       Despre noi
@@ -169,85 +222,37 @@ export default function NavBar() {
                       href="/contact"
                       className={cn(
                         navigationMenuTriggerStyle(),
-                        "bg-transparent hover:bg-transparent font-medium text-foreground transition-all duration-300 ease-in-out cursor-pointer",
-                        "relative after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:bg-primary",
-                        "after:transition-all after:duration-300 after:ease-out after:-translate-x-1/2",
-                        "hover:after:w-3/4"
+                        "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 font-medium text-foreground transition-all duration-200 cursor-pointer h-9"
                       )}
                     >
                       Contact
                     </NavigationMenuLink>
                   </NavigationMenuItem>
-
-                  <NavigationMenuItem>
-                    <a
-                      href="/calculator"
-                      className="inline-flex flex-row items-center gap-2 px-4 py-2 bg-black dark:bg-white text-white dark:text-black rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
-                    >
-                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                      </svg>
-                      <span>Calculator</span>
-                    </a>
-                  </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
 
-            {/* Right Section */}
-            <div className="flex items-center space-x-4">
-              {/* Phone Number */}
-              <div className="hidden md:flex items-center">
-                <a
-                  href="tel:+37361142323"
-                  className={cn(
-                    "flex items-center space-x-2 bg-[#FFB343] text-black px-4 py-2 rounded-full font-medium shadow-sm",
-                    "transition-all duration-300 ease-in-out",
-                    "hover:bg-[#FFC56D] hover:shadow-md hover:scale-105",
-                    "active:scale-95 active:shadow-sm",
-                    "cursor-pointer"
-                  )}
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>+(373) 61 142 323</span>
-                </a>
-              </div>
-
-              {/* Social Icons */}
-              <div className="flex items-center space-x-2">
-                {/* Viber */}
-                <a
-                  href="#"
-                  className="p-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors duration-200 cursor-pointer"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d={siViber.path} />
-                  </svg>
-                </a>
-
-                {/* Telegram */}
-                <a
-                  href="#"
-                  className="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors duration-200 cursor-pointer"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d={siTelegram.path} />
-                  </svg>
-                </a>
-              </div>
-
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                aria-label="Toggle theme"
+            {/* CTA Buttons */}
+            <div className="flex items-center gap-3">
+              {/* Calculator - Desktop */}
+              <a
+                href="/calculator"
+                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-medium text-sm transition-all duration-200 hover:scale-105 hover:shadow-lg"
               >
-                {mounted && isDark ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-              </button>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span>Calculator</span>
+              </a>
+
+              {/* Plată Online - Desktop */}
+              <a
+                href="/plata-online"
+                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-[#FFB343] hover:bg-[#FFC56D] text-black rounded-full font-medium text-sm transition-all duration-200 hover:scale-105 hover:shadow-lg shadow-[#FFB343]/20"
+              >
+                <CreditCard className="w-4 h-4" />
+                <span>Plată online</span>
+              </a>
 
               {/* Mobile Menu Button */}
               <Sheet open={isMenuOpen} onOpenChange={(open) => {
@@ -371,6 +376,18 @@ export default function NavBar() {
                         </div>
                         <span className="text-base font-medium">Calculator</span>
                       </a>
+
+                      {/* Plată online */}
+                      <a
+                        href="/plata-online"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center gap-4 px-4 py-4 rounded-xl text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all active:scale-[0.98]"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-[#FFB343] flex items-center justify-center">
+                          <CreditCard className="w-5 h-5 text-black" />
+                        </div>
+                        <span className="text-base font-medium">Plată online</span>
+                      </a>
                     </div>
                   </nav>
 
@@ -379,7 +396,7 @@ export default function NavBar() {
                     {/* Phone CTA */}
                     <a
                       href="tel:+37361142323"
-                      className="flex items-center justify-center gap-3 w-full bg-[#FFB343] hover:bg-[#FFC56D] text-black px-6 py-4 rounded-2xl font-semibold shadow-lg shadow-[#FFB343]/20 transition-all active:scale-[0.98] mb-4"
+                      className="flex items-center justify-center gap-3 w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-4 rounded-2xl font-semibold transition-all active:scale-[0.98] mb-4"
                     >
                       <Phone className="w-5 h-5" />
                       <span>+(373) 61 142 323</span>
@@ -412,7 +429,7 @@ export default function NavBar() {
             </div>
           </div>
         </div>
-      </div>
-    </motion.nav>
+      </nav>
+    </motion.div>
   );
 }

@@ -70,3 +70,29 @@ export interface ContactRequest {
   admin_notes?: string;
   assigned_to?: string;
 }
+
+export interface PaymentTransaction {
+  id?: string;
+  created_at?: string;
+  updated_at?: string;
+  order_id: string;
+  pay_id?: string;
+  service_type: 'contabilitate' | 'consultanta' | 'instruire';
+  amount: number;
+  currency: string;
+  description?: string;
+  status: 'created' | 'pending' | 'ok' | 'failed' | 'declined' | 'timeout' | 'refunded';
+  status_code?: string;
+  status_message?: string;
+  client_ip?: string;
+  company_name?: string;
+  client_name?: string;
+  client_email?: string;
+  client_phone?: string;
+  card_number?: string;
+  rrn?: string;
+  approval?: string;
+  three_ds?: string;
+  callback_received_at?: string;
+  admin_notes?: string;
+}
