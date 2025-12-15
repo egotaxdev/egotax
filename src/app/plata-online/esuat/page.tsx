@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
@@ -10,12 +10,11 @@ import {
   XCircle,
   RefreshCw,
   Phone,
-  CreditCard,
   ArrowLeft
 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function PaymentFailedPage() {
+function PaymentFailedContent() {
   const searchParams = useSearchParams();
   const payId = searchParams.get('payId');
   const orderId = searchParams.get('orderId');
@@ -156,5 +155,17 @@ export default function PaymentFailedPage() {
         </Card>
       </motion.div>
     </div>
+  );
+}
+
+export default function PaymentFailedPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-[#FFB343] border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <PaymentFailedContent />
+    </Suspense>
   );
 }
