@@ -60,10 +60,14 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 40px 40px 30px; border-radius: 12px 12px 0 0; text-align: center;">
-              <div style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                <span style="font-size: 30px;">&#10003;</span>
-              </div>
+            <td style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); padding: 40px 40px 30px; border-radius: 12px 12px 0 0; text-align: center;">
+              <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 0 auto 16px;">
+                <tr>
+                  <td style="width: 60px; height: 60px; background-color: #FFB343; border-radius: 50%; text-align: center; vertical-align: middle;">
+                    <img src="https://egotax.md/check-icon.png" alt="OK" width="28" height="28" style="display: block; margin: 0 auto;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#1e1e1e;font-size:28px;font-weight:bold;line-height:60px>&#10003;</span>';">
+                  </td>
+                </tr>
+              </table>
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Plată reușită!</h1>
             </td>
           </tr>
@@ -93,7 +97,7 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
                       </tr>
                       <tr>
                         <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Sumă:</td>
-                        <td style="padding: 8px 0; color: #059669; font-size: 18px; font-weight: 700; text-align: right;">${data.amount.toLocaleString('ro-MD')} ${data.currency}</td>
+                        <td style="padding: 8px 0; color: #D97706; font-size: 18px; font-weight: 700; text-align: right;">${data.amount.toLocaleString('ro-MD')} ${data.currency}</td>
                       </tr>
                       <tr>
                         <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Data:</td>
@@ -121,8 +125,8 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
               <!-- Contact Button -->
               <table role="presentation" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td style="border-radius: 8px; background-color: #059669;">
-                    <a href="https://egotax.md/contacte" style="display: inline-block; padding: 14px 28px; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600;">
+                  <td style="border-radius: 8px; background-color: #FFB343;">
+                    <a href="https://egotax.md/contacte" style="display: inline-block; padding: 14px 28px; color: #1e1e1e; text-decoration: none; font-size: 14px; font-weight: 600;">
                       Contactați-ne
                     </a>
                   </td>
@@ -133,7 +137,7 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
 
           <!-- Footer -->
           <tr>
-            <td style="padding: 24px 40px; background-color: #f9fafb; border-radius: 0 0 12px 12px; border-top: 1px solid #e5e7eb;">
+            <td style="padding: 24px 40px; background-color: #1e1e1e; border-radius: 0 0 12px 12px;">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="text-align: center;">
@@ -141,7 +145,7 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
                       EgoTax S.R.L. | Servicii contabile profesionale
                     </p>
                     <p style="color: #9ca3af; font-size: 12px; margin: 0;">
-                      <a href="https://egotax.md" style="color: #059669; text-decoration: none;">egotax.md</a>
+                      <a href="https://egotax.md" style="color: #FFB343; text-decoration: none;">egotax.md</a>
                     </p>
                   </td>
                 </tr>
