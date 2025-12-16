@@ -60,13 +60,9 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
           <!-- Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); padding: 40px 40px 30px; border-radius: 12px 12px 0 0; text-align: center;">
-              <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 0 auto 16px;">
-                <tr>
-                  <td style="width: 60px; height: 60px; background-color: #FFB343; border-radius: 50%; text-align: center; vertical-align: middle; line-height: 60px; font-size: 28px; color: #1e1e1e; font-weight: bold;">&#10004;</td>
-                </tr>
-              </table>
-              <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Plată reușită!</h1>
+            <td style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); padding: 40px; border-radius: 12px 12px 0 0; text-align: center;">
+              <h1 style="color: #FFB343; margin: 0; font-size: 28px; font-weight: 600;">Plată reușită!</h1>
+              <p style="color: #9ca3af; margin: 8px 0 0; font-size: 14px;">Tranzacția a fost procesată cu succes</p>
             </td>
           </tr>
 
