@@ -118,3 +118,17 @@ export interface PaymentTransaction {
   callback_received_at?: string;
   admin_notes?: string;
 }
+
+export interface CalculatorPrice {
+  id: string;
+  created_at?: string;
+  updated_at?: string;
+  category: 'legal_form' | 'activity_type' | 'operations' | 'additional' | 'per_unit' | 'equipment';
+  key: string;
+  label: string;
+  description?: string;
+  price: number;
+  is_per_unit: boolean;
+  sort_order: number;
+  is_active: boolean;
+}

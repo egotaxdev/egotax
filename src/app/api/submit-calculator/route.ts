@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, CalculatorRequest } from '@/lib/supabase';
 import { sendTelegramMessage, formatCalculatorRequestMessage } from '@/lib/telegram';
-import { notifyNewCalculatorRequest } from '@/lib/push-notifications';
 
 // Force Node.js runtime for better compatibility with external APIs
 export const runtime = 'nodejs';
@@ -79,11 +78,6 @@ export async function POST(request: NextRequest) {
     if (!telegramSent) {
       console.error('Telegram notification failed but data was saved');
     }
-
-    // Send push notification to admins (don't wait for it)
-    notifyNewCalculatorRequest(body.name, body.legalFormLabel).catch(err => {
-      console.error('Push notification failed:', err);
-    });
 
     return NextResponse.json({
       success: true,

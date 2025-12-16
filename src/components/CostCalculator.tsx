@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -22,9 +22,10 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer'
-import { Calculator, Building2, Users, Car, CreditCard, Banknote, Settings, Check, ChevronsUpDown, X, ChevronRight, Phone, Briefcase, Activity } from 'lucide-react'
+import { Calculator, Building2, Users, Car, CreditCard, Banknote, Settings, Check, ChevronsUpDown, X, ChevronRight, Phone, Briefcase, Activity, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import CalculatorRequestForm from '@/components/CalculatorRequestForm'
+import { useCalculatorPrices, calculateCost } from '@/hooks/useCalculatorPrices'
 
 interface CalculatorData {
   legalForm: string
@@ -43,44 +44,14 @@ interface CalculatorData {
   bankAccounts: number
 }
 
-const legalForms = [
-  { value: 'srl', label: 'SRL', description: 'Societate cu Răspundere Limitată' },
-  { value: 'ii', label: 'I.I.', description: 'Întreprinzător Individual' },
-  { value: 'ics', label: 'ICS', description: 'Întreprindere cu Capital Străin' },
-  { value: 'ao', label: 'AO', description: 'Asociație Obștească' },
-  { value: 'sa', label: 'SA', description: 'Societate pe Acțiuni' },
-  { value: 'parc-it', label: 'Parc IT', description: 'Rezident al Parcului IT' },
-  { value: 'apc', label: 'APC', description: 'Asociația de Proprietari' }
-]
-
-const activityTypes = [
-  { value: 'it', label: 'Companii IT' },
-  { value: 'b2b', label: 'Servicii B2B' },
-  { value: 'legal', label: 'Servicii juridice' },
-  { value: 'pharma', label: 'Farmaceutică' },
-  { value: 'logistics', label: 'Logistică' },
-  { value: 'medicine', label: 'Medicină' },
-  { value: 'import-export', label: 'Import/export' },
-  { value: 'trade', label: 'Comerț' },
-  { value: 'production', label: 'Producție' },
-  { value: 'construction', label: 'Construcții' },
-  { value: 'consulting', label: 'Consultanță' },
-  { value: 'marketing', label: 'Marketing și publicitate' },
-  { value: 'finance', label: 'Servicii financiare' },
-  { value: 'education', label: 'Educație și formare' },
-  { value: 'tourism', label: 'Turism și ospitalitate' },
-  { value: 'transport', label: 'Transport și expediere' },
-  { value: 'agriculture', label: 'Agricultură' },
-  { value: 'real-estate', label: 'Imobiliare' },
-  { value: 'energy', label: 'Energie și utilități' },
-  { value: 'telecommunications', label: 'Telecomunicații' }
-]
-
 interface CostCalculatorProps {
   isModal?: boolean
 }
 
 export default function CostCalculator({ isModal = false }: CostCalculatorProps) {
+  // Fetch dynamic prices from Supabase
+  const { prices, loading: pricesLoading } = useCalculatorPrices()
+
   const [data, setData] = useState<CalculatorData>({
     legalForm: '',
     activityTypes: [],
@@ -98,7 +69,6 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
     bankAccounts: 1
   })
 
-  const [calculatedCost, setCalculatedCost] = useState<number>(0)
   const [activityComboboxOpen, setActivityComboboxOpen] = useState(false)
 
   // Mobile drawer states
@@ -107,48 +77,29 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
   const [advancedDrawerOpen, setAdvancedDrawerOpen] = useState(false)
   const [requestFormOpen, setRequestFormOpen] = useState(false)
 
-  // Funcția de calculare a costului
-  const calculateCost = () => {
-    let baseCost = 0
+  // Transform prices to the format used in the component
+  const legalForms = useMemo(() =>
+    prices.legalForms.map(f => ({
+      value: f.key,
+      label: f.label,
+      description: f.description || ''
+    })),
+    [prices.legalForms]
+  )
 
-    // Costul de bază în funcție de forma juridică
-    switch (data.legalForm) {
-      case 'srl': baseCost = 2500; break
-      case 'ii': baseCost = 1500; break
-      case 'ics': baseCost = 2000; break
-      case 'ao': baseCost = 1800; break
-      case 'sa': baseCost = 3000; break
-      case 'parc-it': baseCost = 2200; break
-      case 'apc': baseCost = 1600; break
-      default: baseCost = 2000
-    }
+  const activityTypes = useMemo(() =>
+    prices.activityTypes.map(a => ({
+      value: a.key,
+      label: a.label
+    })),
+    [prices.activityTypes]
+  )
 
-    // Adăugăm costul pentru tipurile de activitate
-    baseCost += data.activityTypes.length * 300
-
-    // Costul în funcție de numărul de operații (100 MDL per fiecare 10 operații)
-    const operationSteps = Math.floor(data.operationsCount / 10)
-    baseCost += operationSteps * 100
-
-    // Servicii suplimentare
-    if (data.hasAdditionalActivity) baseCost += 400
-    if (data.isVATpayer) baseCost += 600
-    if (data.employeesCount > 0) baseCost += data.employeesCount * 150
-    if (data.cashRegisters > 0) baseCost += data.cashRegisters * 200
-    if (data.posTerminals > 0) baseCost += data.posTerminals * 150
-    if (data.vehicles > 0) baseCost += data.vehicles * 300
-    if (data.individualRentals > 0) baseCost += data.individualRentals * 100
-    if (data.credits > 0) baseCost += data.credits * 250
-    if (data.leasing > 0) baseCost += data.leasing * 200
-    if (data.businessTrips > 0) baseCost += data.businessTrips * 100
-    if (data.bankAccounts > 1) baseCost += (data.bankAccounts - 1) * 100
-
-    return baseCost
-  }
-
-  useEffect(() => {
-    setCalculatedCost(calculateCost())
-  }, [data])
+  // Calculate cost using dynamic prices
+  const calculatedCost = useMemo(() =>
+    calculateCost(data, prices),
+    [data, prices]
+  )
 
   const handleActivityTypeChange = (activityValue: string) => {
     if (!data.activityTypes.includes(activityValue)) {
@@ -271,7 +222,10 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
           <div className="flex items-center gap-2">
             {data.activityTypes.length > 0 && (
               <Badge variant="secondary" className="text-xs">
-                +{data.activityTypes.length * 300} lei
+                +{data.activityTypes.reduce((sum, key) => {
+                  const actPrice = prices.activityTypes.find(a => a.key === key)
+                  return sum + (actPrice?.price || 300)
+                }, 0)} lei
               </Badge>
             )}
             <ChevronRight className="w-5 h-5 text-gray-400" />
@@ -313,7 +267,7 @@ export default function CostCalculator({ isModal = false }: CostCalculatorProps)
             </div>
             <div>
               <p className="text-sm font-semibold text-gray-900 dark:text-white">Plătitor TVA</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">+600 lei/lună</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">+{prices.additional.vatPayer} lei/lună</p>
             </div>
           </div>
           <Switch

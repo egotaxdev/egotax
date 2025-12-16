@@ -4,7 +4,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   BarChart3,
   Bell,
-  BellRing,
   Building2,
   Calculator,
   Calendar,
@@ -230,7 +229,28 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; icon: React.
 
 const REQUEST_STATUSES = ['new', 'in_progress', 'completed', 'cancelled'];
 
-type ActivePage = 'dashboard' | 'transactions' | 'oc_requests' | 'calculator_requests' | 'contact_requests' | 'users' | 'settings';
+type ActivePage = 'dashboard' | 'transactions' | 'oc_requests' | 'calculator_requests' | 'contact_requests' | 'users' | 'settings' | 'prices';
+
+interface CalculatorPriceItem {
+  id: string;
+  category: string;
+  key: string;
+  label: string;
+  description?: string;
+  price: number;
+  is_per_unit: boolean;
+  sort_order: number;
+  is_active: boolean;
+}
+
+const CATEGORY_NAMES: Record<string, string> = {
+  legal_form: 'Forme juridice',
+  activity_type: 'Tipuri de activitate',
+  operations: 'Operații',
+  additional: 'Parametri suplimentari',
+  per_unit: 'Per unitate',
+  equipment: 'Echipament',
+};
 
 // Helper functions
 function formatDate(dateString: string) {
@@ -353,12 +373,16 @@ export default function AdminPage() {
   const [editingUser, setEditingUser] = useState<AdminUser | null>(null);
   const [newUser, setNewUser] = useState({ username: '', password: '', name: '', email: '', role: 'admin' });
 
+  // Price management state
+  const [calculatorPrices, setCalculatorPrices] = useState<CalculatorPriceItem[]>([]);
+  const [editingPrice, setEditingPrice] = useState<CalculatorPriceItem | null>(null);
+  const [showPriceDialog, setShowPriceDialog] = useState(false);
+  const [priceForm, setPriceForm] = useState({ label: '', price: 0, description: '' });
+
   // Notifications & Realtime
   const [lastRequestCount, setLastRequestCount] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isRealtimeConnected, setIsRealtimeConnected] = useState(false);
-  const [pushPermission, setPushPermission] = useState<NotificationPermission | 'unsupported'>('default');
-  const [isPushSubscribed, setIsPushSubscribed] = useState(false);
 
   // Fetch functions
   const fetchData = useCallback(async () => {
@@ -422,6 +446,21 @@ export default function AdminPage() {
     }
   }, [authToken, currentUser?.permissions.canManageUsers]);
 
+  const fetchPrices = useCallback(async () => {
+    if (!authToken) return;
+    try {
+      const res = await fetch('/api/admin/prices', {
+        headers: { 'Authorization': `Bearer ${authToken}` },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCalculatorPrices(data.prices || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch prices:', err);
+    }
+  }, [authToken]);
+
   // Auth functions
   useEffect(() => {
     const savedToken = sessionStorage.getItem('admin_token');
@@ -449,6 +488,7 @@ export default function AdminPage() {
       fetchData();
       fetchStats();
       fetchUsers();
+      fetchPrices();
 
       // Fallback polling every 60 seconds (in case realtime fails)
       const interval = setInterval(() => {
@@ -558,120 +598,6 @@ export default function AdminPage() {
       supabase.removeChannel(channel);
     };
   }, [isAuthenticated]);
-
-  // Service Worker & Push Notifications setup
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Check notification support
-    if (!('Notification' in window) || !('serviceWorker' in navigator)) {
-      setPushPermission('unsupported');
-      return;
-    }
-
-    setPushPermission(Notification.permission);
-
-    // Register service worker
-    navigator.serviceWorker.register('/sw.js').then((registration) => {
-      console.log('Service Worker registered:', registration.scope);
-
-      // Check if already subscribed
-      registration.pushManager.getSubscription().then((subscription) => {
-        setIsPushSubscribed(!!subscription);
-      });
-    }).catch((error) => {
-      console.error('Service Worker registration failed:', error);
-    });
-  }, []);
-
-  // Subscribe to push notifications
-  const subscribeToPush = async () => {
-    if (!authToken) return;
-
-    try {
-      const permission = await Notification.requestPermission();
-      setPushPermission(permission);
-
-      if (permission !== 'granted') {
-        toast.error('Permisiunea pentru notificări a fost refuzată');
-        return;
-      }
-
-      const registration = await navigator.serviceWorker.ready;
-      const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-
-      if (!vapidPublicKey) {
-        toast.error('Push notifications not configured');
-        return;
-      }
-
-      const subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
-      });
-
-      // Send subscription to server
-      const res = await fetch('/api/admin/push/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({ subscription }),
-      });
-
-      if (res.ok) {
-        setIsPushSubscribed(true);
-        toast.success('Notificările push au fost activate!');
-      } else {
-        throw new Error('Failed to save subscription');
-      }
-    } catch (error) {
-      console.error('Push subscription error:', error);
-      toast.error('Eroare la activarea notificărilor push');
-    }
-  };
-
-  // Unsubscribe from push notifications
-  const unsubscribeFromPush = async () => {
-    if (!authToken) return;
-
-    try {
-      const registration = await navigator.serviceWorker.ready;
-      const subscription = await registration.pushManager.getSubscription();
-
-      if (subscription) {
-        await subscription.unsubscribe();
-
-        await fetch('/api/admin/push/subscribe', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`,
-          },
-          body: JSON.stringify({ endpoint: subscription.endpoint }),
-        });
-      }
-
-      setIsPushSubscribed(false);
-      toast.success('Notificările push au fost dezactivate');
-    } catch (error) {
-      console.error('Push unsubscribe error:', error);
-      toast.error('Eroare la dezactivarea notificărilor push');
-    }
-  };
-
-  // Helper function to convert VAPID key
-  function urlBase64ToUint8Array(base64String: string) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -842,6 +768,40 @@ export default function AdminPage() {
     }
   };
 
+  const handleUpdatePrice = async () => {
+    if (!authToken || !editingPrice) return;
+    setSaveLoading(true);
+
+    try {
+      const res = await fetch('/api/admin/prices', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          id: editingPrice.id,
+          price: priceForm.price,
+          label: priceForm.label,
+          description: priceForm.description,
+        }),
+      });
+
+      if (res.ok) {
+        setShowPriceDialog(false);
+        setEditingPrice(null);
+        fetchPrices();
+        toast.success('Preț actualizat cu succes');
+      } else {
+        const data = await res.json();
+        toast.error(`Eroare: ${data.error}`);
+      }
+    } catch {
+      toast.error('Eroare de conexiune');
+    }
+    setSaveLoading(false);
+  };
+
   // Filter functions
   const filterItems = <T extends { name: string; phone?: string | null; email?: string | null; company_name?: string | null; status: string }>(items: T[]) => {
     return items.filter(item => {
@@ -880,6 +840,7 @@ export default function AdminPage() {
     contact_requests: 'Mesaje Contact',
     users: 'Utilizatori',
     settings: 'Setări',
+    prices: 'Prețuri Calculator',
   };
 
   // Login screen
@@ -1067,6 +1028,16 @@ export default function AdminPage() {
                     <span>Utilizatori</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    isActive={activePage === 'prices'}
+                    onClick={() => setActivePage('prices')}
+                    tooltip="Prețuri Calculator"
+                  >
+                    <Calculator className="size-4" />
+                    <span>Prețuri</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroup>
           )}
@@ -1145,22 +1116,6 @@ export default function AdminPage() {
             </div>
 
             <Separator orientation="vertical" className="h-4" />
-
-            {/* Push notification toggle */}
-            {pushPermission !== 'unsupported' && (
-              <Button
-                variant={isPushSubscribed ? 'default' : 'outline'}
-                size="sm"
-                onClick={isPushSubscribed ? unsubscribeFromPush : subscribeToPush}
-                title={isPushSubscribed ? 'Dezactivează notificările push' : 'Activează notificările push'}
-              >
-                {isPushSubscribed ? (
-                  <BellRing className="w-4 h-4" />
-                ) : (
-                  <Bell className="w-4 h-4" />
-                )}
-              </Button>
-            )}
 
             {newRequestsCount > 0 && (
               <Badge variant="destructive" className="animate-pulse">
@@ -1739,6 +1694,91 @@ export default function AdminPage() {
               </Card>
             </div>
           )}
+
+          {/* Prices Page */}
+          {activePage === 'prices' && currentUser?.permissions.canManageUsers && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">Prețuri Calculator</h2>
+                <p className="text-muted-foreground">
+                  Gestionați prețurile pentru calculatorul de costuri
+                </p>
+              </div>
+
+              {Object.entries(
+                calculatorPrices.reduce((acc, price) => {
+                  if (!acc[price.category]) acc[price.category] = [];
+                  acc[price.category].push(price);
+                  return acc;
+                }, {} as Record<string, CalculatorPriceItem[]>)
+              ).map(([category, prices]) => (
+                <Card key={category}>
+                  <CardHeader>
+                    <CardTitle className="text-lg">{CATEGORY_NAMES[category] || category}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Denumire</TableHead>
+                          <TableHead>Cheie</TableHead>
+                          <TableHead>Descriere</TableHead>
+                          <TableHead className="text-right">Preț (MDL)</TableHead>
+                          <TableHead>Per unitate</TableHead>
+                          <TableHead className="text-right">Acțiuni</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {prices.sort((a, b) => a.sort_order - b.sort_order).map((price) => (
+                          <TableRow key={price.id}>
+                            <TableCell className="font-medium">{price.label}</TableCell>
+                            <TableCell className="font-mono text-xs text-muted-foreground">{price.key}</TableCell>
+                            <TableCell className="text-sm text-muted-foreground max-w-[200px] truncate">
+                              {price.description || '-'}
+                            </TableCell>
+                            <TableCell className="text-right font-bold">{price.price}</TableCell>
+                            <TableCell>
+                              {price.is_per_unit ? (
+                                <Badge variant="outline" className="text-xs">Per unitate</Badge>
+                              ) : '-'}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => {
+                                  setEditingPrice(price);
+                                  setPriceForm({
+                                    label: price.label,
+                                    price: price.price,
+                                    description: price.description || '',
+                                  });
+                                  setShowPriceDialog(true);
+                                }}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardContent>
+                </Card>
+              ))}
+
+              {calculatorPrices.length === 0 && (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    <p>Nu sunt prețuri configurate.</p>
+                    <p className="text-sm mt-2">
+                      Rulați scriptul SQL din <code className="bg-muted px-1 rounded">supabase_calculator_prices.sql</code> pentru a adăuga prețurile implicite.
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
         </div>
       </SidebarInset>
 
@@ -2007,6 +2047,55 @@ export default function AdminPage() {
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowUserDialog(false)}>Anulează</Button>
             <Button onClick={handleSaveUser} disabled={saveLoading || (!editingUser && (!newUser.username || !newUser.password))}>
+              {saveLoading ? 'Se salvează...' : 'Salvează'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Price Edit Dialog */}
+      <Dialog open={showPriceDialog} onOpenChange={setShowPriceDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Editare preț</DialogTitle>
+            <DialogDescription>
+              {editingPrice && (
+                <span className="font-mono text-xs">{editingPrice.category} / {editingPrice.key}</span>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label>Denumire</Label>
+              <Input
+                value={priceForm.label}
+                onChange={(e) => setPriceForm({ ...priceForm, label: e.target.value })}
+                placeholder="Denumirea elementului"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Preț (MDL)</Label>
+              <Input
+                type="number"
+                min="0"
+                value={priceForm.price}
+                onChange={(e) => setPriceForm({ ...priceForm, price: parseInt(e.target.value) || 0 })}
+                placeholder="0"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Descriere (opțional)</Label>
+              <Input
+                value={priceForm.description}
+                onChange={(e) => setPriceForm({ ...priceForm, description: e.target.value })}
+                placeholder="Descriere suplimentară"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowPriceDialog(false)}>Anulează</Button>
+            <Button onClick={handleUpdatePrice} disabled={saveLoading}>
+              <Save className="w-4 h-4 mr-2" />
               {saveLoading ? 'Se salvează...' : 'Salvează'}
             </Button>
           </DialogFooter>
