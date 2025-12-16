@@ -63,9 +63,7 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
             <td style="background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%); padding: 40px 40px 30px; border-radius: 12px 12px 0 0; text-align: center;">
               <table role="presentation" cellspacing="0" cellpadding="0" style="margin: 0 auto 16px;">
                 <tr>
-                  <td style="width: 60px; height: 60px; background-color: #FFB343; border-radius: 50%; text-align: center; vertical-align: middle;">
-                    <img src="https://egotax.md/check-icon.png" alt="OK" width="28" height="28" style="display: block; margin: 0 auto;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=color:#1e1e1e;font-size:28px;font-weight:bold;line-height:60px>&#10003;</span>';">
-                  </td>
+                  <td style="width: 60px; height: 60px; background-color: #FFB343; border-radius: 50%; text-align: center; vertical-align: middle; line-height: 60px; font-size: 28px; color: #1e1e1e; font-weight: bold;">&#10004;</td>
                 </tr>
               </table>
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Plată reușită!</h1>
