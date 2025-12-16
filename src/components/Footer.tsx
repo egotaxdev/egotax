@@ -66,17 +66,17 @@ const Footer = () => {
   const contactInfo = [
     {
       icon: Phone,
-      text: '+373 60 123 456',
-      href: 'tel:+37360123456'
+      text: '+(373) 61 142 323',
+      href: 'tel:+37361142323'
     },
     {
       icon: Mail,
-      text: 'contact@egotax.md',
-      href: 'mailto:contact@egotax.md'
+      text: 'egotaxcont@gmail.com',
+      href: 'mailto:egotaxcont@gmail.com'
     },
     {
       icon: MapPin,
-      text: 'Chișinău, str. Ștefan cel Mare 123',
+      text: 'str. Alexandru cel Bun, 91, et. 2, mun. Chișinău',
       href: '#'
     },
     {
@@ -235,6 +235,43 @@ const Footer = () => {
           ))}
         </div>
 
+        {/* Payment Logos */}
+        <div className="border-t border-gray-200 dark:border-gray-800 pt-6 md:pt-8 mb-6">
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-xs text-gray-500 dark:text-gray-500">Plăți securizate prin</p>
+            <div className="flex items-center justify-center gap-4 flex-wrap">
+              <Image
+                src="/pay/maib.png"
+                alt="maib"
+                width={60}
+                height={24}
+                className="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity"
+              />
+              <Image
+                src="/pay/visa.png"
+                alt="Visa"
+                width={50}
+                height={16}
+                className="h-4 w-auto opacity-70 hover:opacity-100 transition-opacity"
+              />
+              <Image
+                src="/pay/mastercard.png"
+                alt="Mastercard"
+                width={40}
+                height={24}
+                className="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity"
+              />
+              <Image
+                src="/pay/amex.png"
+                alt="American Express"
+                width={40}
+                height={24}
+                className="h-6 w-auto opacity-70 hover:opacity-100 transition-opacity"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Divider */}
         <div className="border-t border-gray-200 dark:border-gray-800 pt-6 md:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -280,7 +317,7 @@ const Footer = () => {
               </a>
               <span className="hidden sm:inline text-gray-300 dark:text-gray-700">|</span>
               <a
-                href="#terms"
+                href="/termeni-si-conditii"
                 className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
               >
                 Termeni și condiții

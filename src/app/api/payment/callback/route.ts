@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifySignature } from '@/lib/maib';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendTelegramMessage } from '@/lib/telegram';
+import { sendPaymentSuccessEmail } from '@/lib/resend';
 import crypto from 'crypto';
 
 export const runtime = 'nodejs';
@@ -133,6 +134,20 @@ export async function POST(request: NextRequest) {
       .select('*')
       .eq('pay_id', result.payId)
       .single();
+
+    // Send email notification on successful payment
+    if (result.status === 'OK' && transaction?.client_email) {
+      await sendPaymentSuccessEmail({
+        to: transaction.client_email,
+        clientName: transaction.client_name || 'Client',
+        amount: result.amount,
+        currency: result.currency,
+        orderId: result.orderId,
+        serviceType: transaction.service_type || 'other',
+        paymentDate: new Date(),
+        cardNumber: result.cardNumber,
+      }).catch(err => console.error('Failed to send payment email:', err));
+    }
 
     // Send Telegram notification
     const emoji = statusEmoji[result.status] || '❓';

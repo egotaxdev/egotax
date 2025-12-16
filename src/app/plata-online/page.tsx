@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import Link from 'next/link';
 import {
   CreditCard,
   Calculator,
@@ -42,15 +44,16 @@ const services = [
 ];
 
 export default function PlataOnlinePage() {
-  const [selectedService, setSelectedService] = useState<ServiceType>(null);
+  const [selectedService, setSelectedService] = useState<ServiceType>('contabilitate');
   const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [clientName, setClientName] = useState('');
+  const [clientEmail, setClientEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(true);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -78,9 +81,10 @@ export default function PlataOnlinePage() {
         body: JSON.stringify({
           service: selectedService,
           amount: parseFloat(amount),
-          description: description || `Plată pentru ${services.find(s => s.id === selectedService)?.title}`,
+          description: `Plată pentru ${services.find(s => s.id === selectedService)?.title}`,
           companyName: companyName || undefined,
           clientName: clientName || undefined,
+          clientEmail: clientEmail || undefined,
           phone: phone || undefined,
         }),
       });
@@ -114,7 +118,8 @@ export default function PlataOnlinePage() {
   };
 
   const selectedServiceData = services.find(s => s.id === selectedService);
-  const isFormValid = selectedService && amount && parseFloat(amount) >= 1 && companyName.trim() && clientName.trim() && phone.trim();
+  const isFieldsValid = selectedService && amount && parseFloat(amount) >= 1 && companyName.trim() && clientName.trim() && clientEmail.trim() && phone.trim();
+  const isFormValid = isFieldsValid && termsAccepted;
 
   return (
     <div className="min-h-screen bg-background">
@@ -244,7 +249,7 @@ export default function PlataOnlinePage() {
                   <Label className="text-base font-semibold">Detalii plată</Label>
                 </div>
 
-                {/* Amount Row */}
+                {/* Amount & Company Row */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="amount" className="text-sm text-muted-foreground">
@@ -270,24 +275,6 @@ export default function PlataOnlinePage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="description" className="text-sm text-muted-foreground">
-                      Descriere plată (opțional)
-                    </Label>
-                    <Input
-                      id="description"
-                      type="text"
-                      placeholder="Ex: Servicii contabile ianuarie 2025"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      disabled={!selectedService}
-                      className="h-12 border-2 focus:border-[#FFB343] focus:ring-[#FFB343]/20"
-                    />
-                  </div>
-                </div>
-
-                {/* Client Info Row */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-2">
-                  <div className="space-y-2">
                     <Label htmlFor="companyName" className="text-sm text-muted-foreground">
                       Numele companiei *
                     </Label>
@@ -302,7 +289,10 @@ export default function PlataOnlinePage() {
                       className="h-12 border-2 focus:border-[#FFB343] focus:ring-[#FFB343]/20"
                     />
                   </div>
+                </div>
 
+                {/* Client Info Row */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-2">
                   <div className="space-y-2">
                     <Label htmlFor="clientName" className="text-sm text-muted-foreground">
                       Numele dvs. *
@@ -313,6 +303,22 @@ export default function PlataOnlinePage() {
                       placeholder="Ion Popescu"
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
+                      required
+                      disabled={!selectedService}
+                      className="h-12 border-2 focus:border-[#FFB343] focus:ring-[#FFB343]/20"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="clientEmail" className="text-sm text-muted-foreground">
+                      Email *
+                    </Label>
+                    <Input
+                      id="clientEmail"
+                      type="email"
+                      placeholder="email@exemplu.md"
+                      value={clientEmail}
+                      onChange={(e) => setClientEmail(e.target.value)}
                       required
                       disabled={!selectedService}
                       className="h-12 border-2 focus:border-[#FFB343] focus:ring-[#FFB343]/20"
@@ -339,19 +345,19 @@ export default function PlataOnlinePage() {
 
               {/* Summary & Payment */}
               <motion.div
-                animate={{ opacity: isFormValid ? 1 : 0.4 }}
-                className={!isFormValid ? 'pointer-events-none' : ''}
+                animate={{ opacity: isFieldsValid ? 1 : 0.4 }}
+                className={!isFieldsValid ? 'pointer-events-none' : ''}
               >
                 <div className="flex items-center gap-3 mb-5">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs transition-colors ${
-                    isFormValid ? 'bg-[#FFB343] text-black' : 'bg-muted text-muted-foreground'
+                    isFieldsValid ? 'bg-[#FFB343] text-black' : 'bg-muted text-muted-foreground'
                   }`}>
                     3
                   </div>
                   <Label className="text-base font-semibold">Confirmă și plătește</Label>
                 </div>
 
-                {isFormValid ? (
+                {isFieldsValid ? (
                   <div className="bg-gradient-to-br from-muted/50 to-muted rounded-xl p-5 lg:p-6 space-y-4">
                     {/* Summary */}
                     <div className="flex items-center justify-between pb-4 border-b border-border">
@@ -363,8 +369,8 @@ export default function PlataOnlinePage() {
                         )}
                         <div>
                           <p className="font-medium text-sm">{selectedServiceData?.title}</p>
-                          {description && (
-                            <p className="text-xs text-muted-foreground truncate max-w-[200px]">{description}</p>
+                          {companyName && (
+                            <p className="text-xs text-muted-foreground truncate max-w-[200px]">{companyName}</p>
                           )}
                         </div>
                       </div>
@@ -372,6 +378,30 @@ export default function PlataOnlinePage() {
                         <p className="text-2xl font-bold text-[#FFB343]">{amount}</p>
                         <p className="text-xs text-muted-foreground">MDL</p>
                       </div>
+                    </div>
+
+                    {/* Terms Checkbox */}
+                    <div className="flex items-start space-x-3 py-2">
+                      <Checkbox
+                        id="terms"
+                        checked={termsAccepted}
+                        onCheckedChange={(checked) => setTermsAccepted(checked === true)}
+                        className="mt-0.5 border-2 data-[state=checked]:bg-[#FFB343] data-[state=checked]:border-[#FFB343]"
+                      />
+                      <label
+                        htmlFor="terms"
+                        className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
+                      >
+                        Am citit și sunt de acord cu{' '}
+                        <Link
+                          href="/termeni-si-conditii"
+                          target="_blank"
+                          className="text-[#FFB343] hover:underline font-medium"
+                        >
+                          Termenii și Condițiile
+                        </Link>
+                        {' '}de utilizare a serviciilor.
+                      </label>
                     </div>
 
                     {/* Error Message */}
@@ -385,8 +415,8 @@ export default function PlataOnlinePage() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full h-14 text-base font-semibold bg-[#FFB343] text-black hover:bg-[#FFC56D] shadow-lg shadow-[#FFB343]/30 hover:shadow-xl hover:shadow-[#FFB343]/40 transition-all"
-                      disabled={isProcessing}
+                      className="w-full h-14 text-base font-semibold bg-[#FFB343] text-black hover:bg-[#FFC56D] shadow-lg shadow-[#FFB343]/30 hover:shadow-xl hover:shadow-[#FFB343]/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+                      disabled={isProcessing || !termsAccepted}
                     >
                       {isProcessing ? (
                         <>

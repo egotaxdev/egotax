@@ -12,7 +12,7 @@ interface PaymentRequest {
   description?: string;
   companyName?: string;
   clientName?: string;
-  email?: string;
+  clientEmail?: string;
   phone?: string;
 }
 
@@ -25,7 +25,7 @@ const serviceNames: Record<string, string> = {
 export async function POST(request: NextRequest) {
   try {
     const body: PaymentRequest = await request.json();
-    const { service, amount, description, companyName, clientName, email, phone } = body;
+    const { service, amount, description, companyName, clientName, clientEmail, phone } = body;
 
     // Validation
     if (!service || !['contabilitate', 'consultanta', 'instruire'].includes(service)) {
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       language: 'ro',
       description: paymentDescription.substring(0, 124), // maib limit
       clientName: fullClientName || undefined,
-      email: email ? email.substring(0, 40) : undefined,
+      email: clientEmail ? clientEmail.substring(0, 40) : undefined,
       phone: phone ? phone.substring(0, 40) : undefined,
       orderId,
       callbackUrl,
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
         status: 'created',
         client_ip: clientIp,
         client_name: clientName,
-        client_email: email,
+        client_email: clientEmail,
         client_phone: phone,
         company_name: companyName,
       });
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
         `🆔 <b>Pay ID:</b> <code>${maibResponse.result.payId}</code>\n` +
         (companyName ? `🏢 <b>Companie:</b> ${companyName}\n` : '') +
         (clientName ? `👤 <b>Client:</b> ${clientName}\n` : '') +
-        (email ? `📧 <b>Email:</b> ${email}\n` : '') +
+        (clientEmail ? `📧 <b>Email:</b> ${clientEmail}\n` : '') +
         (phone ? `📞 <b>Telefon:</b> ${phone}\n` : '') +
         `\n⏰ ${new Date().toLocaleString('ro-MD', { timeZone: 'Europe/Chisinau' })}`,
       parse_mode: 'HTML',
