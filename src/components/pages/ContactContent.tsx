@@ -58,8 +58,8 @@ export default function ContactContent() {
     {
       icon: Mail,
       title: "Email",
-      content: "info@egotax.md",
-      href: "mailto:info@egotax.md"
+      content: "egotaxcont@gmail.com",
+      href: "mailto:egotaxcont@gmail.com"
     },
     {
       icon: MapPin,
@@ -178,12 +178,11 @@ export default function ContactContent() {
             Contactează-ne
           </Badge>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 lg:mb-6">
-            Suntem aici să te{' '}
+            Suntem aici să vă{' '}
             <span className="text-[#FFB343]">ajutăm</span>
           </h1>
           <p className="text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Ai întrebări despre serviciile noastre sau dorești o consultanță? Contactează-ne
-            prin oricare dintre metodele de mai jos sau completează formularul de contact.
+            Dacă aveți întrebări despre serviciile noastre sau doriți o consultație, vă rugăm să ne contactați utilizând metodele de mai jos sau prin formularul de contact.
           </p>
         </motion.div>
       </section>
@@ -268,7 +267,7 @@ export default function ContactContent() {
                 Contact rapid
               </h3>
               <p className="text-black/80 text-sm mb-4">
-                Sună-ne acum pentru o consultanță gratuită.
+                Preferi să discutăm la telefon? Sună acum pentru o consultație gratuită.
               </p>
               <Button
                 asChild
@@ -293,9 +292,9 @@ export default function ContactContent() {
             className="lg:col-span-2"
           >
             <Card className="p-5 lg:p-8">
-              <h2 className="text-2xl lg:text-3xl font-bold mb-2">Trimite-ne un mesaj</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-2">Scrie-ne un mesaj</h2>
               <p className="text-sm lg:text-base text-muted-foreground mb-6 lg:mb-8">
-                Completează formularul de mai jos și te vom contacta în cel mai scurt timp posibil.
+                Completați formularul de mai jos și vă vom contacta în cel mai scurt timp.
               </p>
 
               {isSubmitted ? (
@@ -462,7 +461,7 @@ export default function ContactContent() {
                   Contact rapid
                 </h3>
                 <p className="text-black/80 mb-6">
-                  Preferi să vorbești direct? Sună-ne acum pentru o consultanță gratuită.
+                  Preferi să discutăm la telefon? Sună acum pentru o consultație gratuită.
                 </p>
                 <Button
                   asChild
@@ -528,8 +527,7 @@ export default function ContactContent() {
               Ai întrebări frecvente?
             </h2>
             <p className="text-sm lg:text-base text-muted-foreground mb-4 lg:mb-6 max-w-2xl mx-auto">
-              Consultă secțiunea noastră FAQ pentru răspunsuri rapide la cele mai comune întrebări
-              despre serviciile noastre de contabilitate și fiscalitate.
+              Consultă secțiunea noastră FAQ pentru răspunsuri la cele mai comune întrebări despre serviciile noastre.
             </p>
             <Button
               size="lg"

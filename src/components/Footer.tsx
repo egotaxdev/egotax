@@ -132,8 +132,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-              Servicii profesionale de contabilitate și consultanță fiscală în Moldova.
-              Expertiză de încredere pentru afacerea ta.
+              Servicii calitative de evidență contabilă și consultanță fiscală în Republica Moldova. Expertiză de încredere pentru afacerea ta.
             </p>
 
             {/* Contact Info */}
@@ -277,7 +276,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <div className="text-sm text-gray-600 dark:text-gray-400 order-3 md:order-1">
-              © {currentYear} EgoTax. Toate drepturile rezervate.
+              © {currentYear} Ego Tax. Toate drepturile rezervate.
             </div>
 
             {/* Social Links - Desktop Only */}

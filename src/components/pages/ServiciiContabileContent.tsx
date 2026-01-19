@@ -30,18 +30,18 @@ export default function ServiciiContabileContent() {
   const benefits = [
     {
       icon: Shield,
-      title: 'Conformitate totală',
-      description: 'Asigurăm respectarea tuturor normelor fiscale și contabile în vigoare'
+      title: 'Conformitate',
+      description: 'Asigurăm respectarea cadrului legislativ în domeniul contabilității și fiscalității.'
     },
     {
       icon: Clock,
       title: 'Economie de timp',
-      description: 'Eliberați-vă timpul pentru a vă concentra pe dezvoltarea afacerii'
+      description: 'Externalizarea serviciilor contabile permite să te concentrezi pe dezvoltarea afacerii, minimizând astfel grijile administrative.'
     },
     {
       icon: TrendingUp,
       title: 'Optimizare fiscală',
-      description: 'Identificăm oportunități legale de reducere a obligațiilor fiscale'
+      description: 'Identificăm oportunități pentru gestionarea eficientă a obligațiilor fiscale.'
     },
     {
       icon: Users,
@@ -54,19 +54,18 @@ export default function ServiciiContabileContent() {
     small: [
       'Ținerea evidenței contabile curente',
       'Întocmirea și depunerea rapoartelor fiscale',
-      'Calculul și plata impozitelor',
+      'Gestionarea obligațiilor fiscale',
       'Consultanță fiscală permanentă',
-      'Reprezentare la organele fiscale',
-      'Evidența documentelor primare'
+      'Reprezentare în fața organelor fiscale și statistice',
+      'Evidența și prelucrarea continuă a documentelor primare'
     ],
     medium: [
-      'Toate serviciile pentru afaceri mici',
-      'Gestionarea salariilor și a contribuțiilor',
-      'Raportări lunare și trimestriale detaliate',
-      'Analiză financiară periodică',
-      'Optimizare procese contabile',
-      'Suport pentru audituri',
-      'Planificare bugetară'
+      'Toate serviciile incluse în Pachetul pentru afaceri mici',
+      'Servicii resurse umane',
+      'Analize financiare pentru susținerea deciziilor de management',
+      'Optimizarea proceselor contabile și fiscale',
+      'Suport și asistență în cadrul auditului',
+      'Planificare și control financiar'
     ]
   };
 
@@ -116,8 +115,7 @@ export default function ServiciiContabileContent() {
             </h1>
 
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Scăpăm de observațiile Fiscului, de blocări și de debitări neclare, precum și de problemele cu fondurile.
-              Lăsați contabilitatea în mâinile experților și concentrați-vă pe creșterea afacerii.
+              Înregistrarea faptelor economice prin prelucrarea necontenită a documentelor primare, respectând principiile contabilității și raportării financiare; întocmirea și prezentarea declarațiilor fiscale în conformitate cu legislația în vigoare.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -206,9 +204,8 @@ export default function ServiciiContabileContent() {
             <TabsContent value="small">
               <Card>
                 <CardHeader>
-                  <CardTitle>Pachet pentru afaceri mici</CardTitle>
-                  <CardDescription>
-                    Perfect pentru antreprenorii individuali și firmele cu activitate redusă
+                  <CardDescription className="text-base">
+                    Ideal pentru întreprinderile micro și mici, care au un volum de tranzacții redus
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -225,9 +222,8 @@ export default function ServiciiContabileContent() {
             <TabsContent value="medium">
               <Card>
                 <CardHeader>
-                  <CardTitle>Pachet pentru afaceri medii</CardTitle>
-                  <CardDescription>
-                    Soluție completă pentru companii cu activitate complexă și număr mare de angajați
+                  <CardDescription className="text-base">
+                    Soluție completă pentru companii cu activitate complexă și un număr mai mare de angajați
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -314,33 +310,28 @@ export default function ServiciiContabileContent() {
             <AccordionItem value="item-1">
               <AccordionTrigger>Cât costă serviciile de contabilitate?</AccordionTrigger>
               <AccordionContent>
-                Costul depinde de complexitatea afacerii, volumul de tranzacții și serviciile necesare.
-                Oferim pachete personalizate începând de la 3000 MDL/lună pentru afaceri mici.
-                Contactați-ne pentru o ofertă personalizată.
+                Costul depinde de complexitatea afacerii, volumul de tranzacții și serviciile necesare. Oferim pachete personalizate începând de la 1500 MDL/lună pentru afaceri mici. Contactați-ne pentru a obține o ofertă personalizată.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2">
               <AccordionTrigger>Cum transmit documentele contabile?</AccordionTrigger>
               <AccordionContent>
-                Puteți transmite documentele prin email, prin platforma noastră online sau le putem prelua personal.
-                Acceptăm atât documente în format fizic, cât și digital.
+                Puteți transmite documentele fizic sau online prin email/utilizând aplicațiile de mesagerie instantă (Telegram, Viber) sau le putem prelua personal.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3">
               <AccordionTrigger>Cât timp durează procesarea documentelor?</AccordionTrigger>
               <AccordionContent>
-                De regulă, documentele sunt procesate în termen de 2-3 zile lucrătoare de la primire.
-                Pentru situații urgente, oferim servicii expres.
+                De regulă, documentele sunt procesate în termen de 2-3 zile lucrătoare de la primire. Pentru situații urgente, oferim servicii expres.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
-              <AccordionTrigger>Oferiți consultanță fiscală?</AccordionTrigger>
+              <AccordionTrigger>Oferiți consultanță în domeniul fiscal?</AccordionTrigger>
               <AccordionContent>
-                Da, consultanța fiscală este inclusă în toate pachetele noastre de servicii.
-                Echipa noastră este disponibilă pentru a răspunde la întrebări și a oferi recomandări.
+                Da, consultanța este inclusă în toate pachetele noastre de servicii. Echipa noastră este disponibilă pentru a răspunde la întrebări și a oferi recomandări.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -359,11 +350,10 @@ export default function ServiciiContabileContent() {
             <Card className="bg-gradient-to-br from-[#FFB343] to-[#FF9F2E] border-0">
               <CardContent className="p-8 md:p-12 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                  Gata să simplificăm contabilitatea?
+                  Ai decis să începem colaborarea?
                 </h2>
                 <p className="text-lg text-black/80 mb-8 max-w-2xl mx-auto">
-                  Contactați-ne astăzi pentru o consultație gratuită și aflați cum vă putem ajuta
-                  să vă optimizați procesele contabile.
+                  Contactează-ne astăzi pentru o consultație gratuită.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Button size="lg" variant="secondary" className="bg-black text-white hover:bg-gray-800" asChild>

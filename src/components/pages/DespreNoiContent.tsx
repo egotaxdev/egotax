@@ -64,7 +64,7 @@ export default function DespreNoiContent() {
     { number: "7+", label: "Ani de experiență" },
     { number: "500+", label: "Clienți activi" },
     { number: "98%", label: "Satisfacție clienți" },
-    { number: "24/7", label: "Suport disponibil" }
+    { number: "9+", label: "Domenii de activitate" }
   ];
 
   const whyChooseUs = [
@@ -72,8 +72,7 @@ export default function DespreNoiContent() {
     "Abordare personalizată pentru fiecare client",
     "Tehnologii moderne de contabilitate",
     "Consultanță fiscală permanentă",
-    "Rapoarte detaliate și transparente",
-    "Protecție împotriva sancțiunilor fiscale"
+    "Rapoarte detaliate și transparente"
   ];
 
   return (
@@ -142,10 +141,7 @@ export default function DespreNoiContent() {
               </div>
               <h2 className="text-3xl font-bold mb-4">Misiunea noastră</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Să oferim servicii de contabilitate și consultanță fiscală de cea mai înaltă
-                calitate, ajutând întreprinderile moldovenești să își atingă obiectivele de
-                afaceri într-un cadru legal sigur și eficient. Ne străduim să fim mai mult
-                decât un simplu furnizor de servicii - suntem partenerul strategic al clienților noștri.
+                Misiunea noastră constă în furnizarea serviciilor calitative de evidență contabilă, precum și alte soluții financiare complete și personalizate, în timp util și la momentul oportun, care vă vor ajuta să luați decizii financiare informate.
               </p>
             </Card>
           </motion.div>
@@ -163,10 +159,7 @@ export default function DespreNoiContent() {
               </div>
               <h2 className="text-3xl font-bold mb-4">Viziunea noastră</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Să devenim cea mai de încredere și inovatoare companie de servicii contabile
-                din Moldova, recunoscută pentru excelența serviciilor, integritatea profesională
-                și contribuția la dezvoltarea mediului de afaceri. Aspirăm să setăm standardele
-                de calitate în industrie.
+                Viziunea noastră este de a fi partenerul de încredere în afaceri, astfel încât dvs. să vă atingeți obiectivele financiare cu încredere, fiind ghidați de expertiza noastră.
               </p>
             </Card>
           </motion.div>
@@ -289,8 +282,7 @@ export default function DespreNoiContent() {
               De ce să ne alegi pe noi
             </h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              Suntem mai mult decât o simplă firmă de contabilitate. Oferim parteneriat
-              strategic și consultanță care vă ajută să luați decizii de afaceri informate.
+              Oferim parteneriat strategic și consultanță care vă ajută să luați decizii de afaceri informate.
             </p>
             <div className="space-y-4">
               {whyChooseUs.map((item, index) => (
@@ -332,7 +324,7 @@ export default function DespreNoiContent() {
               <ul className="space-y-3 text-black">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5" />
-                  <span>Certificări internaționale în contabilitate</span>
+                  <span>Studii superioare complete în domeniul economic</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-5 h-5" />
@@ -367,7 +359,7 @@ export default function DespreNoiContent() {
                 className="bg-black text-white hover:bg-black/90"
                 onClick={() => setIsOCFormOpen(true)}
               >
-                Solicită o consultanță
+                Solicită o consultație
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
               <Button

@@ -13,33 +13,33 @@ import OCRequestForm from "@/components/OCRequestForm";
 const faqData = [
   {
     id: "item-1",
-    question: "Ce documente sunt necesare pentru depunerea declarației fiscale?",
-    answer: "Pentru depunerea declarației sunt necesare: adeverința de venituri, documentele de cheltuieli (chitanțe, contracte), adeverințele de conturi bancare, documentele de proprietate imobiliară și alte bunuri. Lista completă depinde de situația dumneavoastră - vă ajutăm să determinăm documentele necesare individual."
+    question: "Cine este obligat să țină evidența contabilă în Republica Moldova?",
+    answer: "Conform legii contabilității și raportării financiare, persoanele juridice și persoanele fizice care practică activitate de întreprinzător, sunt obligate să asigure ținerea evidenței contabile în conformitate cu legislația în vigoare."
   },
   {
-    id: "item-2", 
-    question: "Până când trebuie depusă declarația?",
-    answer: "Declarația pentru anul 2025 trebuie depusă până la 31 martie 2026. Dacă ați obținut venituri de la care nu s-a reținut impozitul sau doriți să obțineți deduceri fiscale - nu întârziați cu depunerea. Vă ajutăm să pregătiți toate documentele la timp."
+    id: "item-2",
+    question: "Ce regimuri fiscale există în Republica Moldova?",
+    answer: "În Republica Moldova, există următoarele regimuri de impozitare: regimul general de impozitare (12% din profit), regimul special pentru întreprinderile mici și mijlocii (4% din venituri), regimul special pentru rezidenții IT Park."
   },
   {
     id: "item-3",
-    question: "Pot obține deduceri fiscale pentru anii trecuți?",
-    answer: "Da, puteți depune declarații și obține deduceri pentru ultimii 3 ani. De exemplu, în 2026 puteți obține deduceri pentru 2023, 2024 și 2025. Aceasta se referă la deducerile imobiliare, sociale și de investiții."
+    question: "Când apare obligația de înregistrare ca plătitor de TVA?",
+    answer: "Subiectul care desfășoară activitate de întreprinzător, cu excepția antreprenorilor independenți conform cap. 104 al titlului II CF, autorităților publice, instituțiilor publice, este obligat să se înregistreze ca contribuabil al T.V.A. dacă el, într-o oricare perioadă de 12 luni consecutive, a efectuat livrări de mărfuri, servicii în sumă ce depășește 1,2 milioane de lei, cu excepția livrărilor scutite de T.V.A. fără drept de deducere și a celor care nu constituie obiect impozabil în conformitate cu art.95 alin.(2) din Codul Fiscal al RM."
   },
   {
     id: "item-4",
-    question: "Ce se întâmplă dacă nu depun declarația la timp?",
-    answer: "Pentru depunerea întârziată a declarației este prevăzută o amendă de la 1000 lei. Dacă există impozit de plătit, se calculează în plus penalități pentru fiecare zi de întârziere. Mai bine să nu riscați - contactați-ne și vă ajutăm să aranjați totul corect și la timp."
+    question: "Ce obligații fiscale are angajatorul în cazul raporturilor de muncă?",
+    answer: "Angajatorul este obligat să calculeze, să rețină și să achite: impozitul pe venit din salariu – 12%; contribuțiile de asigurări sociale – 24%; primele de asigurare medicală – 9%; precum și să prezinte rapoartele fiscale și statistice aferente conform termenului de prezentare stabilit de cadrul normativ în vigoare."
   },
   {
     id: "item-5",
-    question: "Cât costă serviciile dumneavoastră de contabilitate fiscală?",
-    answer: "Costul depinde de complexitatea situației dumneavoastră și volumul de muncă. Consultația este gratuită, pregătirea unei declarații simple - de la 200 lei, ținerea completă a evidenței pentru PFA - de la 500 lei pe lună. Costul exact îl calculăm după analiza documentelor dumneavoastră."
+    question: "Ce consecințe pot apărea în cazul nedepunerii declarațiilor fiscale la timp?",
+    answer: "Nedepunerea sau depunerea cu întârziere a declarațiilor fiscale atrage sancțiuni sub formă de amenzi și penalități de întârziere, conform Codului fiscal al Republicii Moldova."
   },
   {
     id: "item-6",
-    question: "Cât de repede pot obține deducerea fiscală?",
-    answer: "Procedura standard durează până la 4 luni: 3 luni pentru verificarea camerală și 1 lună pentru returnarea banilor. Vă ajutăm să pregătiți toate documentele corect din prima încercare, pentru a evita solicitări suplimentare și a accelera procesul."
+    question: "Este obligatorie angajarea unui contabil dacă compania abia a început activitatea?",
+    answer: "Conform legii contabilității și raportării financiare, conducerea entității este obligată să asigure ținerea contabilității și raportării financiare, și în acest sens are dreptul să desemneze un contabil-șef sau o altă persoană împuternicită de organizarea și conducerea contabilității. Ca alternativă, entitatea poate să transmită ținerea contabilității altei entități în bază contractuală. Contabilul-șef trebuie să dețină diplomă de studii superioare în domeniul economiei. Reiterăm importanța angajării unui contabil profesionist încă din primul an de activitate."
   }
 ];
 
@@ -91,10 +91,10 @@ export default function FAQSection() {
           <motion.div variants={itemVariants} className="text-center mb-8 lg:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-3 lg:mb-6">
               Întrebări frecvente
-              <span className="text-[#FFB343] block">despre fiscalitate</span>
+              <span className="text-[#FFB343] block">despre contabilitate și fiscalitate</span>
             </h2>
             <p className="text-base lg:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Răspunsuri la cele mai populare întrebări despre impozite, documente și termene de depunere a declarațiilor
+              Răspunsuri la cele mai populare întrebări despre impozite, documente și declarații fiscale
             </p>
           </motion.div>
 
@@ -132,13 +132,13 @@ export default function FAQSection() {
           {/* CTA */}
           <motion.div variants={itemVariants} className="text-center mt-8 lg:mt-16">
             <p className="text-sm lg:text-lg text-gray-600 dark:text-gray-300 mb-4 lg:mb-6">
-              Nu ați găsit răspunsul la întrebarea dumneavoastră?
+              Nu ai găsit răspunsul la întrebarea ta?
             </p>
             <button
               onClick={() => setIsOCFormOpen(true)}
               className="w-full sm:w-auto bg-[#FFB343] hover:bg-[#FFC56D] text-black font-semibold px-6 lg:px-8 py-3 lg:py-4 rounded-xl transition-colors duration-200 shadow-lg hover:shadow-xl active:scale-[0.98] cursor-pointer"
             >
-              Obțineți consultație gratuită
+              Obține o consultație gratuită
             </button>
           </motion.div>
         </motion.div>

@@ -74,8 +74,7 @@ export default function FAQContent() {
             variants={itemVariants}
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Găsiți răspunsuri la cele mai comune întrebări despre contabilitate,
-            fiscalitate și serviciile EgoTax
+            Găsiți răspunsuri la cele mai comune întrebări despre contabilitate, fiscalitate și serviciile noastre.
           </motion.p>
         </motion.div>
       </section>

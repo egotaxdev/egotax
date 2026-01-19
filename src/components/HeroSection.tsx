@@ -30,7 +30,7 @@ export default function HeroSection() {
           {/* Hero Image - Mobile (показываем сверху) */}
           <div className="relative w-full h-[450px] sm:h-[400px] rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/hero.jpg"
+              src="/hero-image.jpg"
               alt="Egotax Office"
               fill
               className="object-cover"
@@ -41,10 +41,10 @@ export default function HeroSection() {
           {/* Text Content - Mobile */}
           <div className="flex flex-col">
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 uppercase leading-tight">
-              Partenerul DVS de încredere în afaceri
+              Servicii de evidență contabilă
             </h1>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-              Descoperiți diferența de a lucra cu o firmă care apreciază și are grijă de bunăstarea financiară a clienților săi.
+              La EGO TAX suntem mai mult decât devoratori de numere. Noi suntem partenerii dvs de încredere în domeniul financiar-contabil.
             </p>
             <div className="flex flex-col gap-3">
               <button
@@ -54,9 +54,12 @@ export default function HeroSection() {
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
                   </svg>
-                  Obțineți un OC personalizat
+                  Contactează-ne
                 </span>
               </button>
+              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                Echipa noastră va lua legătura cu dvs în cel mai scurt timp
+              </p>
             </div>
           </div>
 
@@ -130,24 +133,41 @@ export default function HeroSection() {
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-12 grid-rows-6 gap-4 w-full h-full">
           <div className="col-span-7 row-span-5 rounded-lg p-8 flex flex-col justify-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-6 uppercase">
-              <SplittingText
-                text="Partenerul DVSde încredere în afaceri"
-                type="chars"
-                inView={true}
-                motionVariants={{
-                  initial: { x: 150, opacity: 0 },
-                  animate: { x: 0, opacity: 1 },
-                  transition: { duration: 0.7, ease: "easeOut" },
-                  stagger: 0.05
-                }}
-                delay={300}
-              />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-tight leading-snug">
+              <span className="inline-block whitespace-nowrap">
+                <SplittingText
+                  text="Servicii de evidență"
+                  type="words"
+                  inView={true}
+                  motionVariants={{
+                    initial: { x: 150, opacity: 0 },
+                    animate: { x: 0, opacity: 1 },
+                    transition: { duration: 0.7, ease: "easeOut" },
+                    stagger: 0.1
+                  }}
+                  delay={300}
+                />
+              </span>
+              {" "}
+              <span className="inline-block">
+                <SplittingText
+                  text="contabilă"
+                  type="words"
+                  inView={true}
+                  motionVariants={{
+                    initial: { x: 150, opacity: 0 },
+                    animate: { x: 0, opacity: 1 },
+                    transition: { duration: 0.7, ease: "easeOut" },
+                    stagger: 0.1
+                  }}
+                  delay={300}
+                />
+              </span>
             </h1>
             <p className="text-[18px] text-gray-600 dark:text-gray-300 mb-8 leading-relaxed w-3/5">
-              Descoperiți diferența de a lucra cu o firmă care apreciază și are grijă de bunăstarea financiară a clienților săi.
+              La EGO TAX suntem mai mult decât devoratori de numere. Noi suntem partenerii dvs de încredere în domeniul financiar-contabil.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
@@ -159,13 +179,13 @@ export default function HeroSection() {
                       <svg className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
                       </svg>
-                      Obțineți un OC personalizat
+                      Contactează-ne
                     </span>
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#FFB343]/20 to-[#FF9F2E]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Oferta Comerciala pentru sarcinile și afacerea dumneavoastră</p>
+                  <p>Echipa noastră va lua legătura cu dvs în cel mai scurt timp</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -175,7 +195,7 @@ export default function HeroSection() {
           <div className="col-start-9 col-span-4 row-span-5 flex items-center justify-center -ml-20">
             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/hero.jpg"
+                src="/hero-image.jpg"
                 alt="Egotax Office"
                 fill
                 className="object-cover"

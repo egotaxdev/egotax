@@ -31,29 +31,28 @@ export default function ConsultantaFiscalaContent() {
     {
       icon: Calculator,
       title: 'Optimizare fiscală',
-      description: 'Identificăm oportunități legale de reducere a sarcinii fiscale'
+      description: 'Identificăm oportunități de gestiune a obligațiilor fiscale.'
     },
     {
       icon: FileCheck,
       title: 'Conformitate deplină',
-      description: 'Asigurăm respectarea tuturor obligațiilor fiscale'
+      description: 'Asigurăm respectarea obligațiilor fiscale în termenele și în condițiile stabilite de legislație.'
     },
     {
       icon: Award,
       title: 'Expertiză recunoscută',
-      description: 'Consultanți cu certificări și experiență vastă în fiscalitate'
+      description: 'Consultanți cu certificări și experiență vastă în domeniu.'
     },
     {
       icon: Target,
       title: 'Soluții personalizate',
-      description: 'Strategii fiscale adaptate specificului afacerii dumneavoastră'
+      description: 'Abordare bazată pe necesitățile și obiectivele clienților.'
     }
   ];
 
   const services = {
     ongoing: [
       'Consultanță fiscală curentă',
-      'Analiză și planificare fiscală',
       'Optimizare regim de impozitare',
       'Consultanță privind TVA',
       'Asistență la controale fiscale',
@@ -62,36 +61,33 @@ export default function ConsultantaFiscalaContent() {
     ],
     strategic: [
       'Toate serviciile de consultanță curentă',
-      'Planificare fiscală pe termen lung',
+      'Planificare fiscală pe termen mediu și lung',
       'Structurare optimă a tranzacțiilor',
-      'Due diligence fiscal',
       'Consultanță pentru fuziuni și achiziții',
-      'Transfer pricing și prețuri de transfer',
-      'Optimizare pentru investiții străine',
-      'Scheme de impozitare pentru grupuri de companii'
+      'Prețuri de transfer'
     ]
   };
 
   const consultationAreas = [
     {
       icon: PieChart,
-      title: 'TVA și accize',
-      topics: ['Regim de TVA', 'Recuperare TVA', 'TVA la import/export', 'Accize și taxe speciale']
+      title: 'TVA, accize și taxe locale',
+      topics: ['Regimurile TVA', 'Restituirea TVA', 'TVA la import/export', 'Taxe locale, accize, etc']
     },
     {
       icon: Calculator,
       title: 'Impozit pe profit',
-      topics: ['Calculul profitului impozabil', 'Deduceri fiscale', 'Pierderi fiscale', 'Amortizare fiscală']
+      topics: ['Calcularea profitului fiscal', 'Deduceri fiscale', 'Pierderi fiscale', 'Amortizarea în scopuri fiscale']
     },
     {
       icon: Lightbulb,
-      title: 'Contribuții sociale',
-      topics: ['CAS și CASS', 'Fond de pensii', 'Asigurări medicale', 'Contributii angajator']
+      title: 'Contribuții sociale și alte impozite aferente plăților salariale',
+      topics: ['Contribuțiile de asigurări sociale de stat obligatorii', 'Asigurarea medicală', 'Impozitul pe venit din salariu']
     },
     {
       icon: Target,
-      title: 'Regimuri speciale',
-      topics: ['Microîntreprinderi', 'IT Park Moldova', 'Zone economice libere', 'Facilități fiscale']
+      title: 'Alte subiecte în domeniul fiscal',
+      topics: ['Impozitarea la sursa de plată', 'Impozitarea întreprinderilor mici și mijlocii (IMM)', 'IT Park Moldova', 'Facilități fiscale']
     }
   ];
 
@@ -133,7 +129,7 @@ export default function ConsultantaFiscalaContent() {
           >
             <Badge variant="outline" className="mb-4 px-4 py-2">
               <TrendingUp className="w-4 h-4 mr-2" />
-              Consultanță profesională
+              Servicii B2B
             </Badge>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
@@ -141,9 +137,7 @@ export default function ConsultantaFiscalaContent() {
             </h1>
 
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Consultanță fiscală eficientă: vă ajutăm să respectați obligațiile legale,
-              optimizăm taxele și vă oferim soluții personalizate pentru afacerea dumneavoastră.
-              Experții noștri vă ghidează prin complexitatea legislației fiscale moldovenești.
+              Oferim asistență în gestionarea obligațiilor fiscale, asigurăm conformitatea prin prezentarea declarațiilor fiscale corect și în termenele stabilite de lege; servicii de planificare fiscală, structurare și optimizare fiscală, de reprezentare în fața autorităților fiscale.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -219,7 +213,7 @@ export default function ConsultantaFiscalaContent() {
               Domenii de consultanță
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              Oferim consultanță expertă în toate aspectele fiscalității
+              Oferim servicii de consultanță în diverse aspecte fiscale.
             </p>
           </motion.div>
 
@@ -290,7 +284,7 @@ export default function ConsultantaFiscalaContent() {
                 <CardHeader>
                   <CardTitle>Consultanță fiscală curentă</CardTitle>
                   <CardDescription>
-                    Suport constant pentru respectarea obligațiilor fiscale și optimizare operațională
+                    Suport continuu în vederea asigurării conformității cu legislația fiscală.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -309,7 +303,7 @@ export default function ConsultantaFiscalaContent() {
                 <CardHeader>
                   <CardTitle>Consultanță strategică</CardTitle>
                   <CardDescription>
-                    Soluții complexe pentru structurare fiscală optimă și planificare pe termen lung
+                    Soluții complexe pentru selectarea unei structuri fiscale optime și planificare pe termen lung.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -394,47 +388,37 @@ export default function ConsultantaFiscalaContent() {
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger>Ce este optimizarea fiscală și este legală?</AccordionTrigger>
+              <AccordionTrigger>Ce este optimizarea fiscală?</AccordionTrigger>
               <AccordionContent>
-                Optimizarea fiscală constă în utilizarea legală a prevederilor din legislația fiscală
-                pentru reducerea sarcinii fiscale. Este perfect legală și se bazează pe planificare fiscală corectă,
-                utilizarea facilităților fiscale disponibile și structurarea optimă a operațiunilor.
+                Optimizarea fiscală constă în aplicarea corectă a prevederilor legislației fiscale pentru reducerea sarcinii fiscale. Acest lucru se realizează prin intermediul planificării financiare, utilizarea facilităților fiscale disponibile și gestionarea rațională a resurselor aflate la dispoziția entității.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2">
               <AccordionTrigger>Cât costă o consultație fiscală?</AccordionTrigger>
               <AccordionContent>
-                Prima consultație este gratuită. Ulterior, costul serviciilor depinde de complexitatea problemei
-                și de tipul de consultanță necesară. Oferim pachete lunare de consultanță de la 4000 MDL
-                sau consultații punctuale cu tarif orar de la 1000 MDL.
+                Prima consultație este gratuită. Ulterior, costul serviciilor depinde de complexitatea problemei și de tipul de expertiză solicitat.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3">
-              <AccordionTrigger>Ajutați la controalele fiscale?</AccordionTrigger>
+              <AccordionTrigger>Oferiți suport în cadrul controalelor fiscale?</AccordionTrigger>
               <AccordionContent>
-                Da, oferim asistență completă în timpul controalelor fiscale: pregătirea documentelor,
-                reprezentare în fața inspectorilor fiscali, contestarea eventualelor decizii nefavorabile,
-                și asistență juridică în procedurile de contencios administrativ fiscal.
+                Da, oferim asistență completă în timpul controalelor fiscale: pregătirea documentelor, reprezentare în fața inspectorilor fiscali, analiza rezultatelor controlului, formularea recomandărilor pe viitor.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
-              <AccordionTrigger>Ce înseamnă IT Park și cum pot beneficia?</AccordionTrigger>
+              <AccordionTrigger>Ce înseamnă regimul IT Park și cum pot beneficia?</AccordionTrigger>
               <AccordionContent>
-                IT Park Moldova este un regim fiscal special pentru companiile IT cu facilități fiscale semnificative:
-                impozit pe venit de 7% în loc de impozit pe profit 12%, scutire de contribuții sociale angajator,
-                și alte beneficii. Vă asistăm în evaluarea eligibilității și înregistrarea în parc.
+                IT Park Moldova este un regim fiscal special pentru companiile IT cu facilități fiscale semnificative: impozit pe venit de 7% în loc de impozit pe profit 12%, scutire de contribuții sociale de la angajator, și alte beneficii pentru angajați. Vă asistăm în evaluarea eligibilității și înregistrarea în Moldova IT Park.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5">
-              <AccordionTrigger>Cum vă țineți la curent cu modificările legislative?</AccordionTrigger>
+              <AccordionTrigger>Cum țineți pasul cu modificările legislative?</AccordionTrigger>
               <AccordionContent>
-                Echipa noastră monitorizează zilnic publicațiile oficiale, participă la training-uri și seminarii,
-                și menține relații strânse cu autoritățile fiscale. Toți clienții noștri primesc notificări
-                despre modificările legislative relevante pentru activitatea lor.
+                Echipa noastră monitorizează zilnic publicațiile oficiale, participă periodic la training-uri și seminare, organizate de instituțiile care activează în acest domeniu. Clienții noștri primesc notificări despre modificările legislative relevante pentru activitatea lor.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -456,8 +440,7 @@ export default function ConsultantaFiscalaContent() {
                   Aveți nevoie de consultanță fiscală?
                 </h2>
                 <p className="text-lg text-black/80 mb-8 max-w-2xl mx-auto">
-                  Obțineți o consultație gratuită de la experții noștri și aflați cum puteți
-                  optimiza obligațiile fiscale ale companiei dumneavoastră.
+                  Programați o consultație cu experții noștri pentru o îndrumare specializată în domeniul fiscalității.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Button size="lg" variant="secondary" className="bg-black text-white hover:bg-gray-800" asChild>
@@ -467,7 +450,7 @@ export default function ConsultantaFiscalaContent() {
                     </a>
                   </Button>
                   <Button size="lg" variant="outline" className="border-black text-black hover:bg-black/10" onClick={() => setIsOCFormOpen(true)}>
-                    Rezervă consultație
+                    Luați legătura cu noi
                   </Button>
                 </div>
               </CardContent>

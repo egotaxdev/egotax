@@ -34,6 +34,7 @@ export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -49,6 +50,24 @@ export default function NavBar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('[data-radix-navigation-menu-viewport]') &&
+          !target.closest('[data-slot="navigation-menu-trigger"]')) {
+        setIsServicesDropdownOpen(false);
+      }
+    };
+
+    if (isServicesDropdownOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isServicesDropdownOpen]);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -151,7 +170,11 @@ export default function NavBar() {
 
             {/* Desktop Menu */}
             <div className="hidden lg:flex items-center">
-              <NavigationMenu>
+              <NavigationMenu
+                delayDuration={0}
+                value={isServicesDropdownOpen ? "services" : ""}
+                onValueChange={(value) => setIsServicesDropdownOpen(value === "services")}
+              >
                 <NavigationMenuList className="space-x-1">
                   <NavigationMenuItem>
                     <NavigationMenuLink
@@ -165,13 +188,22 @@ export default function NavBar() {
                     </NavigationMenuLink>
                   </NavigationMenuItem>
 
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className={cn(
-                      "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 font-medium text-foreground transition-all duration-200 cursor-pointer h-9"
-                    )}>
+                  <NavigationMenuItem value="services">
+                    <NavigationMenuTrigger
+                      onClick={() => setIsServicesDropdownOpen(!isServicesDropdownOpen)}
+                      onPointerEnter={(e) => e.preventDefault()}
+                      onPointerMove={(e) => e.preventDefault()}
+                      className={cn(
+                        "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 font-medium text-foreground transition-all duration-200 cursor-pointer h-9"
+                      )}
+                    >
                       Servicii
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent>
+                    <NavigationMenuContent
+                      onPointerEnter={(e) => e.preventDefault()}
+                      onPointerMove={(e) => e.preventDefault()}
+                      onPointerLeave={(e) => e.preventDefault()}
+                    >
                       <ul className="grid w-[500px] gap-3 p-4 lg:w-[600px]">
                         {services.map((service) => {
                           const IconComponent = service.icon;
@@ -180,6 +212,7 @@ export default function NavBar() {
                               <NavigationMenuLink asChild>
                                 <a
                                   href={service.href}
+                                  onClick={() => setIsServicesDropdownOpen(false)}
                                   className={cn(
                                     "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
                                     "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"

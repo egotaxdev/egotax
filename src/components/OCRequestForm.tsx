@@ -457,10 +457,10 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
             <DrawerHeader className="border-b border-gray-100 dark:border-gray-800 flex-shrink-0">
               <DrawerTitle className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-[#FFB343]" />
-                Obțineți OC personalizat
+                Contactează-ne
               </DrawerTitle>
               <DrawerDescription>
-                Completați formularul pentru o ofertă personalizată
+                Completează formularul și noi vom lua legătura cu tine în cel mai scurt timp
               </DrawerDescription>
             </DrawerHeader>
             {formContent}
@@ -477,10 +477,10 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
         <DialogHeader className="px-6 pt-6 pb-4 border-b border-gray-100 dark:border-gray-800">
           <DialogTitle className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#FFB343]" />
-            Obțineți OC personalizat
+            Contactează-ne
           </DialogTitle>
           <DialogDescription>
-            Completați formularul pentru o ofertă personalizată
+            Completează formularul și noi vom lua legătura cu tine în cel mai scurt timp
           </DialogDescription>
         </DialogHeader>
         {formContent}

@@ -198,9 +198,7 @@ export default function AnalizaFinanciaraContent() {
             </h1>
 
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Analizăm situația financiară și oferim recomandări pentru optimizare.
-              Transformăm datele în insight-uri acționabile care vă ajută să luați
-              decizii informate și să creșteți profitabilitatea afacerii.
+              Un proces detaliat și complex de evaluare a stării financiare a entității, care permite identificarea punctelor slabe și oportunităților de creștere. Acesta implică examinarea și interpretarea datelor financiar-contabile, prin aplicarea metodelor de calcul specifice, în scopul de a obține o înțelegere profundă a situației economico-financiare a întreprinderii.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -648,7 +646,7 @@ export default function AnalizaFinanciaraContent() {
             <Card className="bg-gradient-to-br from-[#FFB343] to-[#FF9F2E] border-0">
               <CardContent className="p-8 md:p-12 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                  Doriți să înțelegeți mai bine afacerea dvs.?
+                  Doriți să înțelegeți mai bine afacerea dvs?
                 </h2>
                 <p className="text-lg text-black/80 mb-8 max-w-2xl mx-auto">
                   Contactați-ne pentru o consultație gratuită și aflați cum o analiză

@@ -29,65 +29,59 @@ interface StatItem {
 }
 
 const stats: StatItem[] = [
-  { 
-    number: 500, 
-    label: "Declarații procesate", 
+  {
+    number: 500,
+    label: "Declarații prezentate",
     description: "în ultimul an fiscal",
     icon: <FileCheck className="w-8 h-8" />,
     suffix: "+",
-    progress: 95,
     badge: "Anual",
-    color: "text-[#FFB343]" // Желто-оранжевый
+    color: "text-[#FFB343]"
   },
-  { 
-    number: 98, 
-    label: "Rata de succes", 
-    description: "la controalele fiscale",
+  {
+    number: 10,
+    label: "Domenii de expertiză",
+    description: "În contabilitatea din diverse ramuri",
     icon: <Shield className="w-8 h-8" />,
-    suffix: "%",
-    progress: 98,
+    suffix: "+",
     badge: "Garantat",
-    color: "text-gray-900 dark:text-white" // Черный/белый
+    color: "text-gray-900 dark:text-white"
   },
-  { 
-    number: 150, 
-    label: "Companii active", 
+  {
+    number: 150,
+    label: "Companii active",
     description: "beneficiază de serviciile noastre",
     icon: <Users className="w-8 h-8" />,
     suffix: "+",
-    progress: 85,
     badge: "Creștere",
-    color: "text-[#FFB343]" // Желто-оранжевый
+    color: "text-[#FFB343]"
   },
-  { 
-    number: 2, 
-    label: "Ore răspuns", 
+  {
+    number: 2,
+    label: "Ore răspuns",
     description: "timp mediu de răspuns",
     icon: <Zap className="w-8 h-8" />,
     suffix: "h",
-    progress: 90,
-    badge: "24/7",
-    color: "text-gray-900 dark:text-white" // Черный/белый
+    badge: "Eficiență",
+    color: "text-gray-900 dark:text-white"
   },
-  { 
-    number: 7, 
-    label: "Ani experiență", 
+  {
+    number: 7,
+    label: "Ani experiență",
     description: "experiență cumulată a echipei",
     icon: <Award className="w-8 h-8" />,
     suffix: "+",
-    progress: 100,
     badge: "Expert",
-    color: "text-[#FFB343]" // Желто-оранжевый
+    color: "text-[#FFB343]"
   },
-  { 
-    number: 100, 
-    label: "Conformitate", 
+  {
+    number: 100,
+    label: "Conformitate",
     description: "cu legislația în vigoare",
     icon: <CheckCircle className="w-8 h-8" />,
     suffix: "%",
-    progress: 100,
-    badge: "Certificat",
-    color: "text-gray-900 dark:text-white" // Черный/белый
+    badge: "Corectitudine",
+    color: "text-gray-900 dark:text-white"
   }
 ];
 
@@ -153,8 +147,8 @@ export default function StatsSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2 lg:mb-4">
             Cifre care vorbesc
           </h2>
-          <p className="text-sm lg:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Performanțele noastre demonstrează angajamentul față de excelența în serviciile fiscale
+          <p className="text-sm lg:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Performanțele noastre demonstrează angajamantul față de excelența în domeniul financiar-contabil
           </p>
         </motion.div>
 
@@ -274,24 +268,6 @@ export default function StatsSection() {
                     </p>
                   </div>
 
-                  {/* Progress Bar */}
-                  {stat.progress && (
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                          Performanță
-                        </span>
-                        <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
-                          {stat.progress}%
-                        </span>
-                      </div>
-                      <Progress
-                        value={startAnimation ? stat.progress : 0}
-                        className="h-2 bg-gray-200 dark:bg-gray-700"
-                      />
-                    </div>
-                  )}
-
                   {/* Hover Effect Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-gray-50/50 dark:to-gray-800/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-lg"></div>
 
@@ -303,17 +279,6 @@ export default function StatsSection() {
           ))}
         </motion.div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          className="text-center mt-8 lg:mt-16"
-          initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : (isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 })}
-          transition={isMobile ? {} : { duration: 0.6, delay: 0.8 }}
-        >
-          <p className="text-gray-600 dark:text-gray-400 text-xs lg:text-sm">
-            Statistici actualizate în timp real • Ultima actualizare: {new Date().toLocaleDateString('ro-RO')}
-          </p>
-        </motion.div>
       </div>
     </section>
   );

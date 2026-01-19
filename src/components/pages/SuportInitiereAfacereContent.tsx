@@ -31,22 +31,22 @@ export default function SuportInitiereAfacereContent() {
     {
       icon: ClipboardCheck,
       title: 'Asistență completă',
-      description: 'Vă ghidăm pas cu pas prin tot procesul de înregistrare'
+      description: 'Vă ghidăm pas cu pas prin întreg procesul de înregistrare.'
     },
     {
       icon: BookOpen,
       title: 'Expertiză locală',
-      description: 'Cunoaștem perfect legislația și procedurile din Moldova'
+      description: 'Avem o experiență vastă în Republica Moldova.'
     },
     {
       icon: Award,
       title: 'Economie de timp',
-      description: 'Evitați birocrația și greșelile costisitoare'
+      description: 'Evitați greșelile și aflați repede răspunsuri la întrebările dvs.'
     },
     {
       icon: Sparkles,
       title: 'Start rapid',
-      description: 'Începeți activitatea în cel mai scurt timp posibil'
+      description: 'Începeți activitatea în cel mai scurt timp posibil.'
     }
   ];
 
@@ -68,22 +68,20 @@ export default function SuportInitiereAfacereContent() {
       description: 'Cea mai populară formă pentru afaceri mici și mijlocii',
       features: [
         'Responsabilitate limitată',
-        'Capital social minim: 100 lei',
-        'Poate avea mai mulți acționari',
-        'Credibilitate mai mare',
-        'Opțiuni de creștere flexibile'
+        'Capital social minim nu este reglementat',
+        'Pot fi mai mulți asociați',
+        'Opțiuni de creștere mai flexibilă'
       ],
       bestFor: 'Afaceri cu planuri de creștere, parteneriate, activități comerciale'
     },
     {
-      title: 'Asociație Obștească (AO)',
+      title: 'Organizație necomercială',
       description: 'Pentru organizații non-profit și inițiative sociale',
       features: [
         'Scop non-profit',
         'Facilități fiscale',
-        'Minim 3 fondatori',
         'Activități sociale/culturale',
-        'Finanțare prin granturi'
+        'Finanțare prin contribuțiile membrilor/granturi'
       ],
       bestFor: 'ONG-uri, organizații caritabile, cluburi, asociații profesionale'
     }
@@ -93,32 +91,22 @@ export default function SuportInitiereAfacereContent() {
     {
       step: '01',
       title: 'Consultația inițială',
-      description: 'Discutăm despre afacerea dvs. și alegem forma juridică optimă',
-      duration: '1 zi'
+      description: 'Discutăm despre afacerea dvs. și alegem forma juridică optimă'
     },
     {
       step: '02',
       title: 'Pregătirea documentelor',
-      description: 'Întocmim toate actele necesare pentru înregistrare',
-      duration: '1-2 zile'
+      description: 'Întocmim toate actele necesare pentru înregistrare'
     },
     {
       step: '03',
-      title: 'Înregistrarea oficială',
-      description: 'Depunem dosarul la ASP și obținem certificatul de înregistrare',
-      duration: '3-5 zile'
+      title: 'Înregistrarea de stat',
+      description: 'Depunem dosarul la ASP și obținem extrasul companiei'
     },
     {
       step: '04',
-      title: 'Înregistrarea fiscală',
-      description: 'Înregistrăm compania la Serviciul Fiscal de Stat',
-      duration: '1-2 zile'
-    },
-    {
-      step: '05',
-      title: 'Setup complet',
-      description: 'Deschidere cont bancar, comandă ștampilă, înregistrări suplimentare',
-      duration: '3-5 zile'
+      title: 'Finalizare',
+      description: 'Deschidere cont bancar, comandă ștampilă, înregistrare ca plătitor de TVA, consultații'
     }
   ];
 
@@ -126,26 +114,22 @@ export default function SuportInitiereAfacereContent() {
     individual: [
       'Buletin de identitate (copie)',
       'Cerere de înregistrare',
-      'Declarație privind activitatea',
-      'Certificat de la Casa Socială (dacă e cazul)',
-      'Taxa de stat - 240 lei'
+      'Taxa de stat'
     ],
     srl: [
       'Acte de identitate ale fondatorilor',
+      'Cererea de înregistrare',
       'Statutul societății',
-      'Contractul de constituire',
-      'Decizia asociatului unic / HCA',
-      'Dovada virării capitalului social',
-      'Declarație privind activitatea',
-      'Taxa de stat - 960 lei'
+      'Procesul verbal/ Decizia de constituire',
+      'Declarația privind beneficiarul efectiv',
+      'Taxa de stat'
     ],
     ao: [
-      'Acte de identitate ale fondatorilor (minim 3)',
-      'Statutul asociației',
-      'Procesul-verbal de constituire',
-      'Declarație de interes public',
-      'Lista fondatorilor',
-      'Taxa de stat - 480 lei'
+      'Documentul care atestă stabilirea sediului - pentru asociațiile obștești, fundații, instituții private, asociațiile de dezvoltare intercomunitară',
+      'Hotărârea de constituire',
+      'Actele de constituire',
+      'Informația privind beneficiarul efectiv',
+      'Alte acte conform cerințelor specifice în dependență de scopul organizației necomerciale'
     ]
   };
 
@@ -154,22 +138,16 @@ export default function SuportInitiereAfacereContent() {
       'Consultanță privind forma juridică',
       'Verificarea denumirii',
       'Întocmire documente de constituire',
-      'Depunere dosare la ASP',
-      'Înregistrare la SFS',
-      'Obținere certificate',
+      'Înregistrare la ASP',
+      'Obținere extras',
       'Consultanță fiscală de bază'
     ],
     complete: [
       'Toate serviciile din pachetul de bază',
+      'Depunerea dosarului la ASP pentru dvs',
       'Asistență deschidere cont bancar',
       'Comandă ștampilă oficială',
-      'Înregistrare la CNA (dacă e cazul)',
-      'Înregistrare la BASS',
-      'Obținere licențe/autorizații necesare',
-      'Consultanță contabilă primele 3 luni',
-      'Setup evidență contabilă',
-      'Training pentru administrator',
-      'Asistență juridică 30 zile'
+      'Obținere licențe/autorizații necesare'
     ]
   };
 
@@ -182,7 +160,7 @@ export default function SuportInitiereAfacereContent() {
     {
       category: 'Procedura',
       question: 'Cât durează înregistrarea?',
-      answer: 'II: 3-5 zile lucrătoare. SRL: 7-10 zile lucrătoare. AO: 10-15 zile lucrătoare.'
+      answer: 'II și SRL: până la 3 zile lucrătoare. AO: până la 15 zile lucrătoare.'
     },
     {
       category: 'Costuri',
@@ -191,8 +169,8 @@ export default function SuportInitiereAfacereContent() {
     },
     {
       category: 'Capital social',
-      question: 'Cât capital trebuie?',
-      answer: 'II: fără capital. SRL: minim 100 lei. Recomandăm capital real corespunzător activității planificate.'
+      question: 'Este nevoie de capital minim?',
+      answer: 'II nu are capital social, iar în cazul SRL, capitalul social minim nu este reglementat prin lege, deci poate fi orice sumă.'
     }
   ];
 
@@ -212,7 +190,6 @@ export default function SuportInitiereAfacereContent() {
       items: [
         'Deschideți cont bancar',
         'Comandați ștampila',
-        'Înregistrați-vă la BASS',
         'Obțineți autorizațiile necesare',
         'Configurați evidența contabilă',
         'Pregătiți contractele standard'
@@ -235,7 +212,7 @@ export default function SuportInitiereAfacereContent() {
           >
             <Badge variant="outline" className="mb-4 px-4 py-2">
               <Rocket className="w-4 h-4 mr-2" />
-              Start-up Services
+              Servicii pentru Start-up
             </Badge>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
@@ -243,9 +220,7 @@ export default function SuportInitiereAfacereContent() {
             </h1>
 
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Vă ajutăm să porniți afacerea cu toate documentele și procedurile necesare.
-              De la idee la prima factură - vă ghidăm la fiecare pas pentru un start de succes
-              în lumea antreprenoriatului din Moldova.
+              Oferim consultanță și ghidare în alegerea formei organizatorico-juridice și a regimului fiscal, în selectarea și gestionarea formelor de finanțare.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -400,12 +375,9 @@ export default function SuportInitiereAfacereContent() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                            {item.title}
-                          </h3>
-                          <Badge variant="secondary">{item.duration}</Badge>
-                        </div>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                          {item.title}
+                        </h3>
                         <p className="text-gray-600 dark:text-gray-300">
                           {item.description}
                         </p>
@@ -441,7 +413,7 @@ export default function SuportInitiereAfacereContent() {
             <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="individual">Întreprinzător Individual</TabsTrigger>
               <TabsTrigger value="srl">SRL</TabsTrigger>
-              <TabsTrigger value="ao">Asociație</TabsTrigger>
+              <TabsTrigger value="ao">Organizație necomercială</TabsTrigger>
             </TabsList>
 
             <TabsContent value="individual">
@@ -485,9 +457,9 @@ export default function SuportInitiereAfacereContent() {
             <TabsContent value="ao">
               <Card>
                 <CardHeader>
-                  <CardTitle>Documente pentru Asociație</CardTitle>
+                  <CardTitle>Documente pentru Organizație necomercială</CardTitle>
                   <CardDescription>
-                    Lista documentelor necesare pentru înregistrarea unei asociații obștești
+                    Lista documentelor necesare pentru înregistrarea unei organizații necomerciale
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">

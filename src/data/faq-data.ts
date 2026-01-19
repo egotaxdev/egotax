@@ -21,12 +21,12 @@ export const faqCategories: FAQCategory[] = [
     questions: [
       {
         id: 'general-1',
-        question: 'Ce servicii oferă EgoTax?',
+        question: 'Ce servicii oferă Ego Tax?',
         answer: 'EgoTax oferă o gamă completă de servicii contabile și fiscale: evidență contabilă, consultanță fiscală, restabilirea evidenței contabile, analiză și diagnostic financiar, precum și suport în inițierea afacerii. Fiecare serviciu este personalizat în funcție de nevoile specifice ale clientului.'
       },
       {
         id: 'general-2',
-        question: 'Cum pot deveni client EgoTax?',
+        question: 'Cum pot deveni client Ego Tax?',
         answer: 'Procesul este simplu: contactați-ne telefonic sau prin formularul de contact, programați o consultație gratuită în care analizăm nevoile dumneavoastră, primiti o ofertă personalizată, iar după acceptare începem colaborarea. Întregul proces poate fi finalizat în 1-2 zile lucrătoare.'
       },
       {
@@ -43,23 +43,13 @@ export const faqCategories: FAQCategory[] = [
     questions: [
       {
         id: 'doc-1',
-        question: 'Ce documente sunt necesare pentru depunerea declarației fiscale?',
-        answer: 'Pentru depunerea declarației sunt necesare: adeverința de venituri, documentele de cheltuieli (chitanțe, contracte), adeverințele de conturi bancare, documentele de proprietate imobiliară și alte bunuri. Lista completă depinde de situația dumneavoastră - vă ajutăm să determinăm documentele necesare individual.'
+        question: 'Ce acte trebuie să transmit lunar la contabilitate?',
+        answer: 'Aici depinde de forma juridică, tipul activității și a regimului de impozitare, dar de regulă lunar trebuie să expediați următoarele acte primare: facturi fiscale, extrase de cont, bonuri de casă, deconturi, dispozițiile de plată prin casă, registrul ECC completat, actele referitor plăților salariale (tabele de pontaj, borderouri de calcul), contractele individuale de muncă noi și lista nu se limitează la acestea.'
       },
       {
         id: 'doc-2',
-        question: 'Până când trebuie depusă declarația?',
-        answer: 'Declarația pentru anul 2025 trebuie depusă până la 31 martie 2026. Dacă ați obținut venituri de la care nu s-a reținut impozitul sau doriți să obțineți deduceri fiscale - nu întârziați cu depunerea. Vă ajutăm să pregătiți toate documentele la timp.'
-      },
-      {
-        id: 'doc-3',
         question: 'Cum transmit documentele contabile?',
-        answer: 'Puteți transmite documentele prin email, prin platforma noastră online sau le putem prelua personal. Acceptăm atât documente în format fizic, cât și digital. Pentru comoditate, recomandăm digitalizarea documentelor.'
-      },
-      {
-        id: 'doc-4',
-        question: 'Pot obține deduceri fiscale pentru anii trecuți?',
-        answer: 'Da, puteți depune declarații și obține deduceri pentru ultimii 3 ani. De exemplu, în 2026 puteți obține deduceri pentru 2023, 2024 și 2025. Aceasta se referă la deducerile imobiliare, sociale și de investiții.'
+        answer: 'Puteți aduce documentele fizic sau le puteți expedia în format electronic prin email, telegram/viber sau le putem prelua personal.'
       },
     ]
   },
@@ -71,7 +61,7 @@ export const faqCategories: FAQCategory[] = [
       {
         id: 'cost-1',
         question: 'Cât costă serviciile de contabilitate?',
-        answer: 'Costul depinde de complexitatea afacerii, volumul de tranzacții și serviciile necesare. Oferim pachete personalizate începând de la 3000 MDL/lună pentru afaceri mici. Contactați-ne pentru o ofertă personalizată.'
+        answer: 'Costul depinde de complexitatea afacerii, volumul de tranzacții și serviciile necesare. Oferim pachete personalizate începând de la 1500 MDL/lună pentru afaceri mici. Contactați-ne pentru o ofertă personalizată.'
       },
       {
         id: 'cost-2',
@@ -98,17 +88,12 @@ export const faqCategories: FAQCategory[] = [
       {
         id: 'term-1',
         question: 'Ce se întâmplă dacă nu depun declarația la timp?',
-        answer: 'Pentru depunerea întârziată a declarației este prevăzută o amendă de la 1000 lei. Dacă există impozit de plătit, se calculează în plus penalități pentru fiecare zi de întârziere. Mai bine să nu riscați - contactați-ne și vă ajutăm să aranjați totul corect și la timp.'
+        answer: 'Pentru depunerea întârziată a declarației riscați amendă, în unele cazuri se ajunge la blocarea conturilor bancare. Dacă există impozite restante, se calculează în plus penalități pentru fiecare zi de întârziere. Contactați-ne și vă ajutăm să aranjați totul corect și la timp.'
       },
       {
         id: 'term-2',
-        question: 'Cât de repede pot obține deducerea fiscală?',
-        answer: 'Procedura standard durează până la 4 luni: 3 luni pentru verificarea camerală și 1 lună pentru returnarea banilor. Vă ajutăm să pregătiți toate documentele corect din prima încercare, pentru a evita solicitări suplimentare și a accelera procesul.'
-      },
-      {
-        id: 'term-3',
         question: 'Care sunt termenele pentru raportările lunare?',
-        answer: 'Declarațiile TVA se depun până pe data de 25 a lunii următoare. Dările de seamă privind salariile - până pe data de 25. Rapoartele statistice au termene variabile. Monitorizăm toate termenele și vă notificăm din timp.'
+        answer: 'Declarațiile TVA și IPC 21 se depun până pe data de 25 a lunii următoare. Rapoartele statistice au termene variabile. Monitorizăm toate termenele și vă notificăm din timp.'
       },
     ]
   },
@@ -119,18 +104,13 @@ export const faqCategories: FAQCategory[] = [
     questions: [
       {
         id: 'control-1',
-        question: 'Ajutați la controalele fiscale?',
-        answer: 'Da, oferim asistență completă în timpul controalelor fiscale: pregătirea documentelor, reprezentare în fața inspectorilor fiscali, contestarea eventualelor decizii nefavorabile și consultanță post-control pentru evitarea problemelor viitoare.'
+        question: 'Ajutați în cazul controalelor fiscale?',
+        answer: 'Da, oferim asistență completă în timpul controalelor fiscale: pregătirea documentelor, reprezentare în fața inspectorilor fiscali, consultanță post-control.'
       },
       {
         id: 'control-2',
         question: 'Cum mă pot pregăti pentru un control fiscal?',
-        answer: 'Vă recomandăm să aveți toate documentele în ordine, să verificați concordanța între declarații și evidența contabilă, să pregătiți explicații pentru tranzacțiile atipice. Oferim servicii de audit preventiv care identifică și corectează problemele înainte de control.'
-      },
-      {
-        id: 'control-3',
-        question: 'Ce fac dacă am primit o amendă fiscală?',
-        answer: 'Analizăm legalitatea amenzii și posibilitățile de contestare. Dacă amenda este justificată, vă ajutăm să o achitați corect și să evitați situații similare. Dacă există motive de contestare, pregătim documentația necesară.'
+        answer: 'Vă recomandăm să aveți toate documentele în ordine, să verificați concordanța între declarații și evidența contabilă, să pregătiți explicații pentru tranzacțiile atipice. Oferim servicii de analiză preventivă care are drept scop identificarea și corectarea erorilor.'
       },
     ]
   },
@@ -146,13 +126,13 @@ export const faqCategories: FAQCategory[] = [
       },
       {
         id: 'colab-2',
-        question: 'Pot schimba pachetul de servicii pe parcurs?',
-        answer: 'Da, pachetele sunt flexibile și pot fi ajustate în funcție de evoluția afacerii dumneavoastră. Upgrade-ul sau downgrade-ul se face simplu, fără penalități sau formalități complicate.'
+        question: 'Prețul serviciilor poate fi modificat?',
+        answer: 'Prețul este flexibil și poate fi ajustat în dependență de evoluția afacerii dumneavoastră.'
       },
       {
         id: 'colab-3',
         question: 'Ce garanții oferiți pentru calitatea serviciilor?',
-        answer: 'Garantăm acuratețea calculelor și respectarea termenelor legale. În cazul unor erori din partea noastră, acoperim eventualele penalități. Avem asigurare de răspundere profesională pentru protecția suplimentară a clienților.'
+        answer: 'Garantăm acuratețea calculelor și respectarea termenelor legale. În cazul unor erori din partea noastră, ne asumăm răspunderea în conformitate cu contractul încheiat cu dumneavoastră.'
       },
     ]
   },

@@ -31,37 +31,37 @@ export default function RestabilireaEvidenteiContent() {
     {
       icon: Shield,
       title: 'Eliminarea riscurilor',
-      description: 'Corectăm erorile și eliminăm riscurile de sancțiuni din partea fiscului'
+      description: 'Corectăm erorile depistate pentru a preveni sancțiunile fiscale.'
     },
     {
       icon: Clock,
       title: 'Recuperare rapidă',
-      description: 'Restabilim evidența contabilă în termene optime'
+      description: 'Restabilim evidența contabilă în termene optime.'
     },
     {
       icon: FileSearch,
       title: 'Analiză completă',
-      description: 'Efectuăm audit complet al documentelor și tranzacțiilor'
+      description: 'Evaluăm situația actuală în baza informațiilor primite.'
     },
     {
       icon: Database,
       title: 'Organizare optimă',
-      description: 'Reorganizăm sistemul contabil pentru funcționare eficientă'
+      description: 'Reorganizăm sistemul de evidență contabilă pentru funcționarea eficientă.'
     }
   ];
 
   const situations = [
     {
       icon: AlertTriangle,
-      title: 'Lipsă de evidență',
-      description: 'Nu s-a ținut evidența contabilă deloc sau pentru anumite perioade',
-      solutions: ['Recreare registre contabile', 'Reconstituire documente primare', 'Întocmire situații financiare']
+      title: 'Lipsa evidenței',
+      description: 'Nu a fost organizată evidența contabilă deloc sau a lipsit pentru anumite perioade',
+      solutions: ['Recreare registre contabile', 'Reconstituire documente primare', 'Întocmirea balanței de verificare generale']
     },
     {
       icon: FileText,
       title: 'Erori în evidență',
       description: 'Evidența a fost ținută, dar conține erori semnificative',
-      solutions: ['Identificare și corectare erori', 'Reconciliere conturi', 'Ajustări retroactive']
+      solutions: ['Identificare și corectare erori', 'Reconciliere conturi', 'Ajustări proactive']
     },
     {
       icon: History,
@@ -89,7 +89,7 @@ export default function RestabilireaEvidenteiContent() {
     ],
     complex: [
       'Toate serviciile din pachetul de bază',
-      'Audit complet al perioadelor anterioare',
+      'Analiza completă a perioadelor anterioare',
       'Reconstituire documente lipsă',
       'Corecție declarații fiscale',
       'Reprezentare la organele fiscale',
@@ -125,11 +125,11 @@ export default function RestabilireaEvidenteiContent() {
   const commonProblems = [
     'Lipsă facturi sau documente justificative',
     'Erori în calculul TVA',
-    'Diferențe între contabilitate și fiscalitate',
+    'Încălcări ale normelor fiscale',
     'Lipsa reconcilierilor bancare',
     'Erori în calculul amortizării',
     'Probleme cu evidența stocurilor',
-    'Diferențe neexplicate în conturi',
+    'Lipsa înregistrărilor operațiunilor economice',
     'Lipsă documente de închidere a anului'
   ];
 
@@ -156,9 +156,7 @@ export default function RestabilireaEvidenteiContent() {
             </h1>
 
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Restabilim evidența contabilă pentru perioade anterioare și corectăm erorile.
-              Transformăm haosul contabil în ordine perfectă, eliminând riscurile și
-              asigurând conformitatea cu legislația fiscală.
+              Refacerea sau recuperarea înregistrărilor contabile în situații în care acestea au fost pierdute, deteriorate sau inexistente. Acest serviciu este esențial pentru a restabili ordinea în evidența contabilă și pentru a asigura corectitudinea raportării fiscale.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -458,39 +456,28 @@ export default function RestabilireaEvidenteiContent() {
             <AccordionItem value="item-2">
               <AccordionTrigger>Cât costă restabilirea evidenței contabile?</AccordionTrigger>
               <AccordionContent>
-                Costul se calculează în funcție de volumul lucrărilor, perioada de restabilit
-                și complexitatea problemelor. În medie, restabilirea unei luni costă de la 6000 MDL.
-                Oferim evaluare gratuită și estimare exactă a costurilor după analiza inițială.
+                Costul se calculează în funcție de volumul lucrărilor, perioada de restabilit și complexitatea problemelor. De regulă, restabilirea pentru o lună este echivalentă sumei pentru serviciile de evidență contabilă. Oferim evaluare gratuită și estimare exactă a costurilor după analiza inițială.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3">
               <AccordionTrigger>Ce documente sunt necesare?</AccordionTrigger>
               <AccordionContent>
-                Toate documentele disponibile: facturi, contracte, extrase bancare,
-                declarații fiscale, NIR-uri, bonuri fiscale, documente de plată salarii, etc.
-                Chiar dacă documentația este incompletă, vom lucra cu ce aveți și vă vom
-                ajuta să reconstituim lipsurile.
+                Toate documentele disponibile în format fizic sau electronic: facturi, contracte, extrase bancare, declarații fiscale, tabele de pontaj, borderouri de calcule a salariilor, bonuri fiscale, documente de casă, etc. Chiar dacă documentația este incompletă, vom lucra cu ce aveți și vă vom ajuta să reconstituim lipsurile.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
               <AccordionTrigger>Puteți corecta și declarațiile fiscale?</AccordionTrigger>
               <AccordionContent>
-                Da, după restabilirea evidenței, vom verifica și corecta declarațiile fiscale
-                dacă este necesar. Vă vom asista în depunerea declarațiilor corective și,
-                dacă este cazul, în negocierea cu organele fiscale pentru reducerea sau
-                anularea penalităților.
+                Da, după restabilirea evidenței, vom verifica și corecta declarațiile fiscale dacă este necesar. Vă vom asista în depunerea declarațiilor corectate și, dacă este cazul, prin reprezentarea în raport cu organele fiscale.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5">
               <AccordionTrigger>Ce se întâmplă dacă documentele sunt pierdute?</AccordionTrigger>
               <AccordionContent>
-                Vom încerca să recuperăm informațiile din alte surse: extrase bancare,
-                corespondență email, arhive electronice, duplicate de la parteneri.
-                Pentru documentele care nu pot fi recuperate, vom întocmi documente
-                justificative conforme cu legislația și vă vom sfătui cum să procedați.
+                Vom încerca să recuperăm informațiile din alte surse: extrase bancare, corespondență email, arhive electronice, acte de verificare de la parteneri.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -509,11 +496,10 @@ export default function RestabilireaEvidenteiContent() {
             <Card className="bg-gradient-to-br from-[#FFB343] to-[#FF9F2E] border-0">
               <CardContent className="p-8 md:p-12 text-center">
                 <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                  Aveți probleme cu evidența contabilă?
+                  Aveți nevoie de ajutor în restabilirea evidenței?
                 </h2>
                 <p className="text-lg text-black/80 mb-8 max-w-2xl mx-auto">
-                  Contactați-ne pentru o evaluare gratuită. Vă vom ajuta să puneți
-                  ordine în contabilitate și să evitați problemele cu fiscul.
+                  Contactați-ne pentru o evaluare gratuită. Vom face ordine în evidența dvs contabilă, minimizând astfel riscul sancțiunilor fiscale.
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center">
                   <Button size="lg" variant="secondary" className="bg-black text-white hover:bg-gray-800" asChild>

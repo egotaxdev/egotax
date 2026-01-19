@@ -22,7 +22,7 @@ const MapSection = () => {
     {
       icon: Phone,
       title: "Telefon",
-      content: "+373 22 123 456"
+      content: "+373 61 142 323"
     },
     {
       icon: Clock,
@@ -32,7 +32,7 @@ const MapSection = () => {
     {
       icon: Mail,
       title: "Email",
-      content: "office@egotax.md"
+      content: "egotaxcont@gmail.com"
     }
   ];
 
@@ -47,10 +47,10 @@ const MapSection = () => {
           className="text-center mb-6 lg:mb-12"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 dark:text-white mb-3 lg:mb-6">
-            Vizitați-ne
+            Contacte
           </h2>
           <p className="text-base lg:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-            Biroul nostru este situat în centrul Chișinăului pentru accesibilitate maximă
+            Te așteptăm la biroul nostru, situat în centrul Chișinăului
           </p>
         </motion.div>
 
@@ -133,7 +133,7 @@ const MapSection = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-sm text-slate-800 dark:text-white mb-1">
-                    Biroul EgoTax
+                    Biroul Ego Tax
                   </h4>
                   <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                     {address}
@@ -167,7 +167,7 @@ const MapSection = () => {
               </div>
               <div>
                 <h4 className="font-semibold text-slate-800 dark:text-white mb-1">
-                  Biroul EgoTax
+                  Biroul Ego Tax
                 </h4>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                   {address}

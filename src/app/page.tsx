@@ -3,7 +3,6 @@ import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import BentoGrid from "@/components/BentoGrid";
 import PartnersSection from "@/components/PartnersSection";
-import ServiceSection from "@/components/ServiceSection";
 import WorkProcessSection from "@/components/WorkProcessSection";
 import BusinessTypesSection from "@/components/BusinessTypesSection";
 import FAQSection from "@/components/FAQSection";
@@ -43,8 +42,6 @@ export default function Home() {
       <SectionDivider variant="subtle" className="my-8" />
       <DarkSection />
 
-      <SectionDivider className="my-8" />
-      <ServiceSection />
 
       <SectionDivider variant="accent" className="my-8" />
       <WorkProcessSection />
