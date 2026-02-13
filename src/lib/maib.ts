@@ -102,15 +102,6 @@ function getCredentials() {
 async function generateToken(): Promise<string> {
   const { projectId, projectSecret } = getCredentials();
 
-  // Log outgoing IP for debugging
-  try {
-    const ipRes = await fetch('https://api.ipify.org?format=json');
-    const ipData = await ipRes.json();
-    console.log('maib outgoing IP:', ipData.ip);
-  } catch (e) {
-    console.log('Could not determine outgoing IP');
-  }
-
   const response = await fetch(`${MAIB_API_URL}/generate-token`, {
     method: 'POST',
     headers: {
@@ -121,8 +112,6 @@ async function generateToken(): Promise<string> {
       projectSecret,
     }),
   });
-
-  console.log('maib token response status:', response.status);
   const data: MaibTokenResponse = await response.json();
 
   if (!data.ok || !data.result) {
@@ -247,8 +236,7 @@ export async function createPayment(params: MaibPaymentRequest): Promise<MaibPay
   });
 
   const responseText = await response.text();
-  console.log('maib response status:', response.status, response.statusText);
-  console.log('maib response headers:', JSON.stringify(Object.fromEntries(response.headers.entries())));
+  console.log('maib response status:', response.status);
   console.log('maib response body:', responseText);
 
   let data: MaibPaymentResponse;
