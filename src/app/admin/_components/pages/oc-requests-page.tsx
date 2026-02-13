@@ -101,7 +101,6 @@ export function OCRequestsPage({
                       phone={req.phone}
                       email={req.email}
                       copyText={`${req.name}\n${req.phone}\n${req.email || ''}`}
-                      onEdit={() => onEditRequest(req)}
                     />
                   </TableCell>
                 </TableRow>

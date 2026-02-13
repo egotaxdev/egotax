@@ -86,7 +86,6 @@ export function ContactRequestsPage({
                       phone={req.phone}
                       email={req.email}
                       copyText={`${req.name}\n${req.email}\n${req.phone || ''}`}
-                      onEdit={() => onEditRequest(req)}
                     />
                   </TableCell>
                 </TableRow>
