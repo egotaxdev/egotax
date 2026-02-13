@@ -237,7 +237,9 @@ export async function createPayment(params: MaibPaymentRequest): Promise<MaibPay
   });
 
   const responseText = await response.text();
-  console.log('maib response:', responseText);
+  console.log('maib response status:', response.status, response.statusText);
+  console.log('maib response headers:', JSON.stringify(Object.fromEntries(response.headers.entries())));
+  console.log('maib response body:', responseText);
 
   let data: MaibPaymentResponse;
   try {
