@@ -120,7 +120,7 @@ export async function sendPaymentSuccessEmail(data: PaymentSuccessEmailData): Pr
               <table role="presentation" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="border-radius: 8px; background-color: #FFB343;">
-                    <a href="https://egotax.md/contacte" style="display: inline-block; padding: 14px 28px; color: #1e1e1e; text-decoration: none; font-size: 14px; font-weight: 600;">
+                    <a href="https://egotax.md/contact" style="display: inline-block; padding: 14px 28px; color: #1e1e1e; text-decoration: none; font-size: 14px; font-weight: 600;">
                       Contactați-ne
                     </a>
                   </td>
@@ -172,7 +172,7 @@ Detalii plată:
 - Nr. comandă: ${data.orderId}
 ${data.cardNumber ? `- Card: ${data.cardNumber}` : ''}
 
-Dacă aveți întrebări, nu ezitați să ne contactați la https://egotax.md/contacte
+Dacă aveți întrebări, nu ezitați să ne contactați la https://egotax.md/contact
 
 --
 EgoTax S.R.L.
