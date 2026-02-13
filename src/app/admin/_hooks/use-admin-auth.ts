@@ -12,10 +12,10 @@ export function useAdminAuth() {
   const [authToken, setAuthToken] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
 
-  // Restore session from sessionStorage
+  // Restore session from localStorage
   useEffect(() => {
-    const savedToken = sessionStorage.getItem('admin_token');
-    const savedUser = sessionStorage.getItem('admin_user');
+    const savedToken = localStorage.getItem('admin_token');
+    const savedUser = localStorage.getItem('admin_user');
     if (savedToken && savedUser) {
       try {
         const tokenData = JSON.parse(atob(savedToken));
@@ -24,12 +24,12 @@ export function useAdminAuth() {
           setCurrentUser(JSON.parse(savedUser));
           setIsAuthenticated(true);
         } else {
-          sessionStorage.removeItem('admin_token');
-          sessionStorage.removeItem('admin_user');
+          localStorage.removeItem('admin_token');
+          localStorage.removeItem('admin_user');
         }
       } catch {
-        sessionStorage.removeItem('admin_token');
-        sessionStorage.removeItem('admin_user');
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
       }
     }
   }, []);
@@ -49,8 +49,8 @@ export function useAdminAuth() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        sessionStorage.setItem('admin_token', data.token);
-        sessionStorage.setItem('admin_user', JSON.stringify(data.user));
+        localStorage.setItem('admin_token', data.token);
+        localStorage.setItem('admin_user', JSON.stringify(data.user));
         setAuthToken(data.token);
         setCurrentUser(data.user);
         setIsAuthenticated(true);
@@ -64,8 +64,8 @@ export function useAdminAuth() {
   }, [username, password]);
 
   const handleLogout = useCallback(() => {
-    sessionStorage.removeItem('admin_token');
-    sessionStorage.removeItem('admin_user');
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
     setAuthToken(null);
     setCurrentUser(null);
     setIsAuthenticated(false);
