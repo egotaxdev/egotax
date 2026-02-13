@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
-import { getAccessToken } from '@/lib/maib';
+import { getAccessToken, getProxyOptions } from '@/lib/maib';
 import { sendTelegramMessage } from '@/lib/telegram';
 
 export const runtime = 'nodejs';
@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
         'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify(payload),
+      ...getProxyOptions(),
     });
 
     const data: RefundResponse = await response.json();

@@ -3,7 +3,19 @@
  * Documentation: https://docs.maibmerchants.md/e-commerce/ru
  */
 
+import { ProxyAgent } from 'undici';
+
 const MAIB_API_URL = 'https://api.maibmerchants.md/v1';
+
+/**
+ * Get fetch options with proxy dispatcher if PROXY_URL is configured.
+ * Works with Fixie (FIXIE_URL) or any HTTP proxy (PROXY_URL).
+ */
+export function getProxyOptions(): RequestInit {
+  const proxyUrl = process.env.FIXIE_URL || process.env.PROXY_URL;
+  if (!proxyUrl) return {};
+  return { dispatcher: new ProxyAgent(proxyUrl) } as RequestInit;
+}
 
 interface MaibTokenResponse {
   result?: {
@@ -111,6 +123,7 @@ async function generateToken(): Promise<string> {
       projectId,
       projectSecret,
     }),
+    ...getProxyOptions(),
   });
   const data: MaibTokenResponse = await response.json();
 
@@ -147,6 +160,7 @@ async function refreshAccessToken(): Promise<string> {
     body: JSON.stringify({
       refreshToken: cachedToken.refreshToken,
     }),
+    ...getProxyOptions(),
   });
 
   const data: MaibTokenResponse = await response.json();
@@ -233,6 +247,7 @@ export async function createPayment(params: MaibPaymentRequest): Promise<MaibPay
       'Authorization': `Bearer ${accessToken}`,
     },
     body: JSON.stringify(payload),
+    ...getProxyOptions(),
   });
 
   const responseText = await response.text();
@@ -263,6 +278,7 @@ export async function getPaymentInfo(payId: string) {
     headers: {
       'Authorization': `Bearer ${accessToken}`,
     },
+    ...getProxyOptions(),
   });
 
   return response.json();
