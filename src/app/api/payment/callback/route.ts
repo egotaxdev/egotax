@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { verifySignature } from '@/lib/maib';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendTelegramMessage } from '@/lib/telegram';
+import { sendPushNotification } from '@/lib/push';
 import { sendPaymentSuccessEmail } from '@/lib/resend';
 import crypto from 'crypto';
 
@@ -170,6 +171,15 @@ export async function POST(request: NextRequest) {
         (transaction?.client_phone ? `📞 <b>Telefon:</b> ${transaction.client_phone}\n` : '') +
         `\n⏰ ${new Date().toLocaleString('ro-MD', { timeZone: 'Europe/Chisinau' })}`,
       parse_mode: 'HTML',
+    }).catch(console.error);
+
+    // Send push notification
+    const pushStatusText = statusText[result.status] || result.status;
+    sendPushNotification({
+      title: `Plată: ${pushStatusText}`,
+      body: `${result.amount} ${result.currency} — ${result.orderId}`,
+      tag: `payment-${result.payId}`,
+      url: '/admin',
     }).catch(console.error);
 
     // Return 200 OK to acknowledge receipt

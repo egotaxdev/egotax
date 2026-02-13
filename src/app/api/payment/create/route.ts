@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createPayment } from '@/lib/maib';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendTelegramMessage } from '@/lib/telegram';
+import { sendPushNotification } from '@/lib/push';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -133,6 +134,14 @@ export async function POST(request: NextRequest) {
         (phone ? `📞 <b>Telefon:</b> ${phone}\n` : '') +
         `\n⏰ ${new Date().toLocaleString('ro-MD', { timeZone: 'Europe/Chisinau' })}`,
       parse_mode: 'HTML',
+    }).catch(console.error);
+
+    // Send push notification
+    sendPushNotification({
+      title: 'Plată nouă inițiată',
+      body: `${amount} MDL — ${serviceNames[service]}${clientName ? ` (${clientName})` : ''}`,
+      tag: 'payment-created',
+      url: '/admin',
     }).catch(console.error);
 
     return NextResponse.json({

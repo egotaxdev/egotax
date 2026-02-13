@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, ContactRequest } from '@/lib/supabase';
 import { sendTelegramMessage, formatContactRequestMessage } from '@/lib/telegram';
+import { sendPushNotification } from '@/lib/push';
 
 // Force Node.js runtime for better compatibility with external APIs
 export const runtime = 'nodejs';
@@ -68,6 +69,14 @@ export async function POST(request: NextRequest) {
     if (!telegramSent) {
       console.error('Telegram notification failed but data was saved');
     }
+
+    // Send push notification
+    sendPushNotification({
+      title: 'Mesaj nou de contact',
+      body: `${body.name} — ${body.subject || body.message?.substring(0, 80) || ''}`,
+      tag: 'contact-request',
+      url: '/admin',
+    }).catch(console.error);
 
     return NextResponse.json({
       success: true,

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getAccessToken, getProxyOptions } from '@/lib/maib';
 import { sendTelegramMessage } from '@/lib/telegram';
+import { sendPushNotification } from '@/lib/push';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -111,6 +112,14 @@ export async function POST(request: NextRequest) {
         `👤 <b>Admin:</b> ${session.username}\n` +
         `\n⏰ ${new Date().toLocaleString('ro-MD', { timeZone: 'Europe/Chisinau' })}`,
       parse_mode: 'HTML',
+    }).catch(console.error);
+
+    // Send push notification
+    sendPushNotification({
+      title: 'Returnare efectuată',
+      body: `${data.result.refundAmount} MDL — ${data.result.orderId}`,
+      tag: 'refund',
+      url: '/admin',
     }).catch(console.error);
 
     return NextResponse.json({

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, CalculatorRequest } from '@/lib/supabase';
 import { sendTelegramMessage, formatCalculatorRequestMessage } from '@/lib/telegram';
+import { sendPushNotification } from '@/lib/push';
 
 // Force Node.js runtime for better compatibility with external APIs
 export const runtime = 'nodejs';
@@ -78,6 +79,14 @@ export async function POST(request: NextRequest) {
     if (!telegramSent) {
       console.error('Telegram notification failed but data was saved');
     }
+
+    // Send push notification
+    sendPushNotification({
+      title: 'Cerere nouă calculator',
+      body: `${body.name} — preț estimat: ${body.estimatedPrice || 0} MDL/lună`,
+      tag: 'calculator-request',
+      url: '/admin',
+    }).catch(console.error);
 
     return NextResponse.json({
       success: true,
