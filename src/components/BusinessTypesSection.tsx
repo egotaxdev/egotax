@@ -187,7 +187,7 @@ export default function BusinessTypesSection() {
                           <IconComponent className="w-5 h-5" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
                             {business.title}
                           </h3>
                           <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
@@ -286,7 +286,7 @@ export default function BusinessTypesSection() {
                     <div className={`w-10 h-10 rounded-lg ${business.color} flex items-center justify-center mb-3 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
                       <IconComponent className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                     </div>
-                    <CardTitle className="text-base font-semibold text-gray-900 dark:text-white transition-all duration-300 group-hover:text-[#FFB343]">
+                    <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white transition-all duration-300 group-hover:text-[#FFB343]">
                       {business.title}
                     </CardTitle>
                   </CardHeader>

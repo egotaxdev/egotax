@@ -167,6 +167,28 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+h1, h2, h3, h4, h5, h6,
+[data-slot="card-title"] {
+  font-family: var(--font-teko), sans-serif;
+}
+
+h2 {
+  font-size: 1.875rem;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  h2 {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h2 {
+    font-size: 3rem;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

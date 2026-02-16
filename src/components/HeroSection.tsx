@@ -40,7 +40,7 @@ export default function HeroSection() {
 
           {/* Text Content - Mobile */}
           <div className="flex flex-col">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 uppercase leading-tight">
+            <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-4 uppercase leading-[1.1]">
               Servicii de evidență contabilă
             </h1>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -133,7 +133,7 @@ export default function HeroSection() {
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-12 grid-rows-6 gap-4 w-full h-full">
           <div className="col-span-7 row-span-5 rounded-lg p-8 flex flex-col justify-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-tight leading-snug">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[75px] font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-tight leading-[1.1]">
               <span className="inline-block whitespace-nowrap">
                 <SplittingText
                   text="Servicii de evidență"
@@ -217,8 +217,8 @@ export default function HeroSection() {
                       </svg>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Servicii evidență contabilă</h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Gestionare completă</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Servicii evidență contabilă</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Gestionare completă</p>
                     </div>
                     <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6-6-6" />
@@ -239,8 +239,8 @@ export default function HeroSection() {
                       </svg>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Consultanță fiscală</h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Expertiză profesională</p>
+                      <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Consultanță fiscală</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Expertiză profesională</p>
                     </div>
                     <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6-6-6" />
@@ -262,8 +262,8 @@ export default function HeroSection() {
                     </svg>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Servicii conexe</h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Suport adițional</p>
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Servicii conexe</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Suport adițional</p>
                   </div>
                   <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6-6-6" />

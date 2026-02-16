@@ -114,7 +114,7 @@ export default function FAQSection() {
                 >
                   <AccordionItem value={faq.id} className="border-none">
                     <AccordionTrigger className="px-4 py-4 lg:px-8 lg:py-6 text-left hover:no-underline lg:hover:bg-gray-50 lg:dark:hover:bg-gray-700 transition-colors duration-200">
-                      <span className="text-sm sm:text-base lg:text-lg font-semibold text-gray-900 dark:text-white pr-2 lg:pr-4">
+                      <span className="text-base sm:text-lg lg:text-xl font-semibold text-gray-900 dark:text-white pr-2 lg:pr-4">
                         {faq.question}
                       </span>
                     </AccordionTrigger>

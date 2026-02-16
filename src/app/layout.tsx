@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Teko } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import LenisProvider from "@/components/LenisProvider";
@@ -9,6 +9,12 @@ import { OrganizationJsonLd, LocalBusinessJsonLd } from "@/components/JsonLd";
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const teko = Teko({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-teko",
   display: "swap",
 });
 
@@ -94,7 +100,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <LocalBusinessJsonLd />
       </head>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${teko.variable} font-sans antialiased`}>
         <LenisProvider>
           <ThemeProvider
             defaultTheme="system"
