@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Teko } from "next/font/google";
+import { Raleway } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import LenisProvider from "@/components/LenisProvider";
 import MainLayout from "@/components/MainLayout";
 import { OrganizationJsonLd, LocalBusinessJsonLd } from "@/components/JsonLd";
 
-const inter = Inter({
+const raleway = Raleway({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const teko = Teko({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-teko",
+  variable: "--font-raleway",
   display: "swap",
 });
 
@@ -100,7 +94,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <LocalBusinessJsonLd />
       </head>
-      <body className={`${inter.variable} ${teko.variable} font-sans antialiased`}>
+      <body className={`${raleway.variable} font-sans antialiased`}>
         <LenisProvider>
           <ThemeProvider
             defaultTheme="system"

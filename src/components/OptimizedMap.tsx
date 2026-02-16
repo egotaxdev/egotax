@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface OptimizedMapProps {
   src: string;
@@ -11,6 +11,7 @@ interface OptimizedMapProps {
 export default function OptimizedMap({ src, title, className = "" }: OptimizedMapProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -33,10 +34,32 @@ export default function OptimizedMap({ src, title, className = "" }: OptimizedMa
 
   useEffect(() => {
     if (isInView && !isLoaded && iframeRef.current) {
-      // Загружаем iframe только когда он в зоне видимости
       iframeRef.current.src = src;
     }
   }, [isInView, isLoaded, src]);
+
+  // Деактивируем карту при скролле страницы
+  useEffect(() => {
+    if (!isActive) return;
+
+    const handleScroll = () => setIsActive(false);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isActive]);
+
+  // Деактивируем карту при клике вне контейнера
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      setIsActive(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isActive) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [isActive, handleClickOutside]);
 
   const handleIframeLoad = () => {
     setIsLoaded(true);
@@ -52,24 +75,31 @@ export default function OptimizedMap({ src, title, className = "" }: OptimizedMa
           </div>
         </div>
       )}
-      
-      {/* Сам iframe загружается только когда нужно */}
+
+      {/* Оверлей блокирует скролл карты, пока не кликнут */}
+      {!isActive && isLoaded && (
+        <div
+          className="absolute inset-0 z-20 cursor-pointer"
+          onClick={() => setIsActive(true)}
+        />
+      )}
+
       <iframe
         ref={iframeRef}
         title={title}
         width="100%"
         height="100%"
-        style={{ 
+        style={{
           border: 0,
           opacity: isLoaded ? 1 : 0,
-          transition: 'opacity 0.3s ease-in-out'
+          transition: 'opacity 0.3s ease-in-out',
+          pointerEvents: isActive ? 'auto' : 'none',
         }}
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         className="w-full h-full map-iframe"
         onLoad={handleIframeLoad}
-        // Важно: не загружаем src сразу, чтобы не блокировать скролл
         src={isInView ? src : undefined}
       />
     </div>

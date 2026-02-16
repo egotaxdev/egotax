@@ -40,7 +40,7 @@ export default function HeroSection() {
 
           {/* Text Content - Mobile */}
           <div className="flex flex-col">
-            <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 dark:text-white mb-4 uppercase leading-[1.1]">
+            <h1 className="text-[2.5rem] sm:text-[3.25rem] font-bold text-gray-900 dark:text-white mb-4 uppercase leading-[1.1]">
               Servicii de evidență contabilă
             </h1>
             <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -133,7 +133,7 @@ export default function HeroSection() {
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-12 grid-rows-6 gap-4 w-full h-full">
           <div className="col-span-7 row-span-5 rounded-lg p-8 flex flex-col justify-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[75px] font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-tight leading-[1.1]">
+            <h1 className="text-[2.5rem] md:text-[3.25rem] lg:text-[4rem] xl:text-[67px] font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-tight leading-[1.1]">
               <span className="inline-block whitespace-nowrap">
                 <SplittingText
                   text="Servicii de evidență"
