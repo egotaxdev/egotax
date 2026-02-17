@@ -28,7 +28,7 @@ export default function HeroSection() {
         {/* Mobile Layout */}
         <div className="flex flex-col gap-6 lg:hidden">
           {/* Hero Image - Mobile (показываем сверху) */}
-          <div className="relative w-full h-[450px] sm:h-[400px] rounded-2xl overflow-hidden shadow-xl">
+          <div className="relative w-screen h-[280px] sm:h-[350px] -mx-4 overflow-hidden">
             <Image
               src="/hero-image.jpg"
               alt="Egotax Office"
@@ -40,10 +40,13 @@ export default function HeroSection() {
 
           {/* Text Content - Mobile */}
           <div className="flex flex-col">
-            <h1 className="text-[2.5rem] sm:text-[3.25rem] font-bold text-gray-900 dark:text-white mb-4 uppercase leading-[1.1]">
-              Servicii de evidență contabilă
+            <h1 className="text-[3.25rem] sm:text-[4rem] font-bold text-gray-900 dark:text-white mb-1 uppercase leading-[1.1]">
+              EGO TAX CONSULTING
             </h1>
-            <p className="text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+            <p className="text-sm sm:text-base font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-[0.15em]">
+              Servicii de evidență contabilă
+            </p>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
               La EGO TAX suntem mai mult decât devoratori de numere. Noi suntem partenerii dvs de încredere în domeniul financiar-contabil.
             </p>
             <div className="flex flex-col gap-3">
@@ -133,10 +136,10 @@ export default function HeroSection() {
         {/* Desktop Layout */}
         <div className="hidden lg:grid grid-cols-12 grid-rows-6 gap-4 w-full h-full">
           <div className="col-span-7 row-span-5 rounded-lg p-8 flex flex-col justify-center">
-            <h1 className="text-[2.5rem] md:text-[3.25rem] lg:text-[4rem] xl:text-[67px] font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-tight leading-[1.1]">
+            <h1 className="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[105px] font-bold text-gray-900 dark:text-white mb-3 uppercase tracking-tight leading-[1.05]">
               <span className="inline-block whitespace-nowrap">
                 <SplittingText
-                  text="Servicii de evidență"
+                  text="EGO TAX"
                   type="words"
                   inView={true}
                   motionVariants={{
@@ -151,7 +154,7 @@ export default function HeroSection() {
               {" "}
               <span className="inline-block">
                 <SplittingText
-                  text="contabilă"
+                  text="CONSULTING"
                   type="words"
                   inView={true}
                   motionVariants={{
@@ -164,7 +167,10 @@ export default function HeroSection() {
                 />
               </span>
             </h1>
-            <p className="text-[18px] text-gray-600 dark:text-gray-300 mb-8 leading-relaxed w-3/5">
+            <p className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-[0.2em] whitespace-nowrap">
+              Servicii de evidență contabilă
+            </p>
+            <p className="text-[18px] text-gray-600 dark:text-gray-300 mb-8 leading-relaxed w-full max-w-[600px]">
               La EGO TAX suntem mai mult decât devoratori de numere. Noi suntem partenerii dvs de încredere în domeniul financiar-contabil.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-start">
