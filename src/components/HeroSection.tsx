@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SplittingText } from "@/components/ui/shadcn-io/splitting-text";
 import React, { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import CostCalculatorDrawer from "@/components/CostCalculatorDrawer";
 import OCRequestForm from "@/components/OCRequestForm";
 import { Calculator } from "lucide-react";
@@ -167,13 +168,28 @@ export default function HeroSection() {
                 />
               </span>
             </h1>
-            <p className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-[0.2em] whitespace-nowrap">
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-6 uppercase tracking-[0.2em] whitespace-nowrap"
+            >
               Servicii de evidență contabilă
-            </p>
-            <p className="text-[18px] text-gray-600 dark:text-gray-300 mb-8 leading-relaxed w-full max-w-[600px]">
+            </motion.p>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 1.0 }}
+              className="text-[18px] text-gray-600 dark:text-gray-300 mb-8 leading-relaxed w-full max-w-[600px]"
+            >
               La EGO TAX suntem mai mult decât devoratori de numere. Noi suntem partenerii dvs de încredere în domeniul financiar-contabil.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 items-start">
+            </motion.p>
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 1.2 }}
+              className="flex flex-col sm:flex-row gap-4 items-start"
+            >
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
@@ -194,11 +210,16 @@ export default function HeroSection() {
                   <p>Echipa noastră va lua legătura cu dvs în cel mai scurt timp</p>
                 </TooltipContent>
               </Tooltip>
-            </div>
+            </motion.div>
           </div>
 
           {/* Hero Image - Right Side */}
-          <div className="col-start-9 col-span-4 row-span-5 flex items-center justify-center -ml-20">
+          <motion.div
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+            className="col-start-9 col-span-4 row-span-5 flex items-center justify-center -ml-20"
+          >
             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src="/hero-image.jpg"
@@ -208,10 +229,15 @@ export default function HeroSection() {
                 priority
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Improved Service Cards Row */}
-          <div className="col-span-8 row-start-6 flex items-center gap-4">
+          <motion.div
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 1.4 }}
+            className="col-span-12 row-start-6 flex items-center gap-4"
+          >
             {/* Servicii Evidenta Contabilă Card */}
             <a href="/servicii/servicii-contabile" className="flex-1">
               <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer border-gray-200 hover:border-gray-300">
@@ -255,29 +281,29 @@ export default function HeroSection() {
                 </CardContent>
               </Card>
             </a>
-          </div>
 
-          {/* Servicii Conexe Card */}
-          <a href="/servicii/suport-initiere-afacere" className="col-start-9 col-span-4 row-start-6">
-            <Card className="h-full group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer border-gray-200 hover:border-gray-300">
-              <CardContent className="p-4 h-full flex items-center justify-center">
-                <div className="flex items-center gap-3 w-full">
-                  <div className="flex-shrink-0 w-10 h-10 bg-[#FFB343] hover:bg-[#FFC56D] dark:bg-[#FFB343] rounded-lg flex items-center justify-center group-hover:bg-[#FFC56D] dark:group-hover:bg-[#FFC56D] transition-colors">
-                    <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            {/* Servicii Conexe Card */}
+            <a href="/servicii/suport-initiere-afacere" className="flex-1">
+              <Card className="group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] cursor-pointer border-gray-200 hover:border-gray-300">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#FFB343] hover:bg-[#FFC56D] dark:bg-[#FFB343] rounded-lg flex items-center justify-center group-hover:bg-[#FFC56D] dark:group-hover:bg-[#FFC56D] transition-colors">
+                      <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Servicii conexe</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Suport adițional</p>
+                    </div>
+                    <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6-6-6" />
                     </svg>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 dark:text-white text-lg">Servicii conexe</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Suport adițional</p>
-                  </div>
-                  <svg className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 18l6-6-6-6" />
-                  </svg>
-                </div>
-              </CardContent>
-            </Card>
-          </a>
+                </CardContent>
+              </Card>
+            </a>
+          </motion.div>
         </div>
 
         {/* Drawer instance for calculator */}

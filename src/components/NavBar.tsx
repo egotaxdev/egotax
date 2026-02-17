@@ -76,16 +76,9 @@ export default function NavBar() {
   const isDark = mounted && (theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches));
 
   return (
-    <motion.div
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{
-        duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94],
-        delay: 0
-      }}
+    <div
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-shadow duration-300",
         isScrolled && "shadow-lg"
       )}
     >
@@ -463,6 +456,6 @@ export default function NavBar() {
           </div>
         </div>
       </nav>
-    </motion.div>
+    </div>
   );
 }
