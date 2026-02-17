@@ -34,7 +34,7 @@ import {
   Mail,
   MessageSquare,
   CheckCircle2,
-  Sparkles,
+  Briefcase,
   Send,
   ChevronDown,
   Check,
@@ -241,7 +241,7 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
               {/* Services Selection - Dropdown/Drawer */}
               <div className="space-y-2">
                 <Label className="flex items-center gap-2 text-sm">
-                  <Sparkles className="w-4 h-4 text-[#FFB343]" />
+                  <Briefcase className="w-4 h-4 text-[#FFB343]" />
                   Servicii de interes
                 </Label>
 
@@ -395,7 +395,7 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
       <DrawerContent className="max-h-[70vh]">
         <DrawerHeader className="border-b border-gray-100 dark:border-gray-800">
           <DrawerTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#FFB343]" />
+            <Briefcase className="w-5 h-5 text-[#FFB343]" />
             Selectați serviciile
           </DrawerTitle>
           <DrawerDescription>
@@ -455,8 +455,7 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
         <Drawer open={open} onOpenChange={onOpenChange}>
           <DrawerContent className="h-[85vh] max-h-[85vh] overflow-hidden">
             <DrawerHeader className="border-b border-gray-100 dark:border-gray-800 flex-shrink-0">
-              <DrawerTitle className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#FFB343]" />
+              <DrawerTitle>
                 Contactează-ne
               </DrawerTitle>
               <DrawerDescription>
@@ -475,8 +474,7 @@ export default function OCRequestForm({ open, onOpenChange }: OCRequestFormProps
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[550px] p-0 gap-0 overflow-hidden max-h-[90vh]">
         <DialogHeader className="px-6 pt-6 pb-4 border-b border-gray-100 dark:border-gray-800">
-          <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#FFB343]" />
+          <DialogTitle>
             Contactează-ne
           </DialogTitle>
           <DialogDescription>

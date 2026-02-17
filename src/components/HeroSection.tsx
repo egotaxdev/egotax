@@ -54,10 +54,7 @@ export default function HeroSection() {
               <button
                 onClick={() => setIsOCFormOpen(true)}
                 className="group relative overflow-hidden bg-gradient-to-r from-[#FFB343] via-[#FFC56D] to-[#FFB343] hover:from-[#FFC56D] hover:via-[#FFB343] hover:to-[#FFC56D] text-black font-bold px-6 py-4 rounded-xl transition-all duration-500 ease-out uppercase text-sm shadow-lg active:scale-95 border border-gray-200 cursor-pointer w-full">
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
-                  </svg>
+                <span className="relative z-10 flex items-center justify-center">
                   Contactează-ne
                 </span>
               </button>
@@ -197,10 +194,7 @@ export default function HeroSection() {
                     className="group relative overflow-hidden bg-gradient-to-r from-[#FFB343] via-[#FFC56D] to-[#FFB343] hover:from-[#FFC56D] hover:via-[#FFB343] hover:to-[#FFC56D] text-black font-bold px-10 py-5 rounded-2xl transition-all duration-500 ease-out uppercase text-sm md:text-base shadow-lg hover:shadow-2xl hover:shadow-[#FFB343]/30 transform hover:scale-105 hover:-translate-y-1 active:scale-95 active:translate-y-0 border border-gray-200 hover:border-gray-300 backdrop-blur-sm cursor-pointer">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-[#FFB343]/0 via-[#FFB343]/10 to-[#FFB343]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="relative z-10 flex items-center gap-2">
-                      <svg className="w-5 h-5 transition-transform duration-300 group-hover:rotate-12" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd" />
-                      </svg>
+                    <span className="relative z-10 flex items-center">
                       Contactează-ne
                     </span>
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#FFB343]/20 to-[#FF9F2E]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
